@@ -12,12 +12,7 @@ namespace Gestion_Animaux
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {
-        public void lancementApplication()
-        {
-            ApplicationData.loadApplicationData();
-        }
-
+    { 
         private void lancementApplication(object sender, StartupEventArgs e)
         {
             ApplicationData.loadApplicationData();
