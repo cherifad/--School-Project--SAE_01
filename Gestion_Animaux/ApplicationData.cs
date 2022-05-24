@@ -37,11 +37,6 @@ namespace Gestion_Animaux
             listeAdoptions = uneAdoption.FindAll();
             listeTypeAnimal = unType.FindAll();
             listeAnimaux = unAnimal.FindAll();
-            //mapping des relations en mode déconnecté
-            //relation bi-directionnelle entre eleve et groupe
-            
-        //relation eleve -> note
-        //relation note -> professeur
         }
     }
 }
