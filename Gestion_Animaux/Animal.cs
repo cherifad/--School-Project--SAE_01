@@ -54,8 +54,8 @@ namespace Gestion_Animaux
                 tailleAnimal = value;
             }
         }
-        private int typeAnimal;
-        public int TypeAnimal
+        private TypeAnimal typeAnimal;
+        public TypeAnimal TypeAnimal
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Gestion_Animaux
                             unAnimal.NomAnimal = reader.GetString(1);
                             unAnimal.PoidsAnimal = reader.GetDouble(2);
                             unAnimal.TailleAnimal = reader.GetInt32(3);
-                            unAnimal.TypeAnimal = reader.GetInt32(4);
+                            unAnimal.TypeAnimal = reader.GetFieldValue<TypeAnimal>(4);
                             listeAnimaux.Add(unAnimal);
                         }
                     }
