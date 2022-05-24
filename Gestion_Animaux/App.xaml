@@ -1,8 +1,11 @@
-﻿<Application x:Class="Gestion_Animaux.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Gestion_Animaux"
-             StartupUri="MainWindow.xaml">
+﻿<Application
+    x:Class="Gestion_Animaux.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Gestion_Animaux"
+    Startup="lancementApplication"
+    StartupUri="MainWindow.xaml">
+
     <Application.Resources>
         <Style x:Key="Poppins">
             <Setter Property="TextElement.FontFamily"
