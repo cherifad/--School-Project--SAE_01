@@ -42,6 +42,12 @@ namespace Gestion_Animaux
         private void Switch_Click(object sender, RoutedEventArgs e)
         {
         }
+
+        private void Adoption_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("AdoptionFrame.xaml",
+             UriKind.RelativeOrAbsolute));
+        }
     }
 
 }

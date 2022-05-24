@@ -8,7 +8,7 @@
     Title="MainWindow"
     MinWidth="800"
     MinHeight="500"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Background="#FF0D1117">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -159,49 +159,55 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Rectangle RadiusX="14" RadiusY="14" Margin="-44,0,0,0" Fill="#FF0D1117">
+            <Rectangle.BitmapEffect>
+                <DropShadowBitmapEffect Color="White" Direction="0" ShadowDepth=".9" Softness="1" Opacity=".5"/>
+            </Rectangle.BitmapEffect>
+        </Rectangle>
         <Button
             x:Name="ExitButton"
-            Height="42"
-            Margin="28,0,28,10"
-            VerticalAlignment="Bottom"
-            Background="Red"
+            Margin="28,422,28,10"
+            Background="#FFCD0000"
             Click="ExitButton_Click"
             Content="Quitter"
-            FontFamily="Poppins ExtraBold"
+            FontFamily="Segoe UI Semibold"
             FontSize="22"
-            Style="{DynamicResource ExitButtonStyle}" />
+            Style="{DynamicResource ExitButtonStyle}" Foreground="White" />
         <Image
             Height="179"
             Margin="10,10,15,0"
             VerticalAlignment="Top"
             Source="/PNG-Animaux-Refuge.png" />
         <Button
-            Height="45"
+            x:Name="Adoption"
             Margin="10,185,15,0"
-            VerticalAlignment="Top"
             Content="Gerer Adoption"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="16" Click="Adoption_Click" />
         <Button
-            Height="45"
+            x:Name="Adoptant"
             Margin="10,240,15,0"
-            VerticalAlignment="Top"
             Content="Gerer Adoptants"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
         <Button
+            x:Name="Animaux"
             Height="45"
             Margin="10,295,15,0"
             VerticalAlignment="Top"
             Content="Gérer Animaux"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
         <Button
+            x:Name="Espece"
             Height="45"
             Margin="10,350,15,0"
             VerticalAlignment="Top"
             Content="Gerer Espèces"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
+        <Label Content="Label" Grid.Column="1" HorizontalAlignment="Left" Height="9" Margin="370,465,0,0" VerticalAlignment="Top" Width="170" Foreground="White" Background="{x:Null}"/>
+        <Frame Name="MainFrame" Grid.Column="1"/>
+
 
 
     </Grid>
