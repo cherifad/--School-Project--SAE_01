@@ -13,15 +13,12 @@ namespace Gestion_Animaux
     /// </summary>
     public partial class App : Application
     {
-        public void lancementApplication()
-        {
-            ApplicationData.loadApplicationData();
-        }
 
         private void lancementApplication(object sender, StartupEventArgs e)
         {
             ApplicationData.loadApplicationData();
         }
+
     }
     
 }

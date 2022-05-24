@@ -10,33 +10,33 @@ namespace Gestion_Animaux
         {
             get;
             set;
-        }/*
-        public static List<Professeur> listeProfesseurs
+        }
+        public static List<Adoption> listeAdoptions
         {
             get;
             set;
-        }*/
+        }
         public static List<TypeAnimal> listeTypeAnimal
         {
             get;
             set;
         }
-        /*public static List<EstNote> listeEstNotes
+        public static List<Animal> listeAnimaux
         {
             get;
             set;
-        }*/
+        }
         public static void loadApplicationData()
         {
             //chargement des tables
             Adoptant unAdoptant = new Adoptant();
-            //Professeur unProfesseur = new Professeur();
-            TypeAnimal unGroupe = new TypeAnimal();
-            //EstNote unEstNote = new EstNote();
+            Adoption uneAdoption = new Adoption();
+            TypeAnimal unType = new TypeAnimal();
+            Animal unAnimal = new Animal();
             listeAdoptants = unAdoptant.FindAll();
-            //listeProfesseurs = unProfesseur.FindAll();
-            listeTypeAnimal = unGroupe.FindAll();
-            //listeEstNotes = unEstNote.FindAll();
+            listeAdoptions = uneAdoption.FindAll();
+            listeTypeAnimal = unType.FindAll();
+            listeAnimaux = unAnimal.FindAll();
             //mapping des relations en mode déconnecté
             //relation bi-directionnelle entre eleve et groupe
             

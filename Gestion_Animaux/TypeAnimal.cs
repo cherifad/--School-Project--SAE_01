@@ -49,7 +49,7 @@ namespace Gestion_Animaux
 		}
 		public List<TypeAnimal> FindAll()
 		{
-			List<TypeAnimal> listeGroupes = new List<TypeAnimal>();
+			List<TypeAnimal> listeTypes = new List<TypeAnimal>();
 			DataAccess access = new DataAccess();
 			SqlDataReader reader;
 			try
@@ -61,10 +61,10 @@ namespace Gestion_Animaux
 					{
 						while (reader.Read())
 						{
-							TypeAnimal unGroupe = new TypeAnimal();
-							unGroupe.IdType = (int)reader.GetDecimal(0);
-							unGroupe.LibelleType = reader.GetString(1);
-							listeGroupes.Add(unGroupe);
+							TypeAnimal unType = new TypeAnimal();
+							unType.IdType = (int)reader.GetDecimal(0);
+							unType.LibelleType = reader.GetString(1);
+							listeTypes.Add(unType);
 						}
 					}
 					else
@@ -79,7 +79,7 @@ namespace Gestion_Animaux
 			{
 				System.Windows.MessageBox.Show(ex.Message, "Important Message");
 			}
-			return listeGroupes;
+			return listeTypes;
 		}
 
 	}

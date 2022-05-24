@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Gestion_Animaux
 {
@@ -52,8 +54,8 @@ namespace Gestion_Animaux
 				tailleAnimal = value;
 			}
 		}
-		private TypeAnimal typeAnimal;
-		public TypeAnimal TypeAnimal
+		private int typeAnimal;
+		public int TypeAnimal
 		{
 			get
 			{
@@ -65,7 +67,7 @@ namespace Gestion_Animaux
 			}
 		}
 
-		public bool AjouterAnimal(int idAnimal, string nomAnimal, double poidsAnimal, int tailleAnimal, TypeAnimal typeAnimal)
+		public bool AjouterAnimal(int idAnimal, string nomAnimal, double poidsAnimal, int tailleAnimal, int typeAnimal)
 		{
 			throw new System.NotImplementedException("Not implemented");
 		}
@@ -81,6 +83,42 @@ namespace Gestion_Animaux
 		{
 			throw new System.NotImplementedException("Not implemented");
 		}
-
+		public List<Animal> FindAll()
+		{
+			List<Animal> listeAnimaux = new List<Animal>();
+			DataAccess access = new DataAccess();
+			SqlDataReader reader;
+			try
+			{
+				if (access.openConnection())
+				{
+					reader = access.getData("select * from Animal;");
+					if (reader.HasRows)
+					{
+						while (reader.Read())
+						{
+							Animal unAnimal = new Animal();
+							unAnimal.IdAnimal = (int)reader.GetDecimal(0);
+							unAnimal.NomAnimal = reader.GetString(1);
+							unAnimal.PoidsAnimal = reader.GetDouble(2);
+							unAnimal.TailleAnimal = reader.GetInt32(3);
+							unAnimal.TypeAnimal = reader.GetInt32(4);
+							listeAnimaux.Add(unAnimal);
+						}
+					}
+					else
+					{
+						System.Windows.MessageBox.Show("No rows found.", "Important Message");
+					}
+					reader.Close();
+					access.closeConnection();
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Windows.MessageBox.Show(ex.Message, "Important Message");
+			}
+			return listeAnimaux;
+		}
 	}
 }

@@ -6,7 +6,68 @@
         xmlns:local="clr-namespace:Gestion_Animaux"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <!--  template pour inserer une case a cocher dans un listview : la case est cochee sur la selection d'un item  -->
+        <DataTemplate x:Key="caseACocher">
+            <StackPanel Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding Path=IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
+        <ListView
+            x:Name="listviewTypeAnimal"
+            Width="500"
+            Height="134"
+            Margin="46,43,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="30" CellTemplate="{StaticResource caseACocher}" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding IdType}"
+                        Header="Id" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding LibelleType}"
+                        Header="Libelle" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView
+            x:Name="listviewAdoptant"
+            Width="500"
+            Height="134"
+            Margin="46,200,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding IdAdoptant}"
+                        Header="Id" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding NomAdoptant}"
+                        Header="Nom" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding PrenomAdoptant}"
+                        Header="Prenom" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding TelAdoptant}"
+                        Header="Tel" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding MailAdoptant}"
+                        Header="Mail" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>

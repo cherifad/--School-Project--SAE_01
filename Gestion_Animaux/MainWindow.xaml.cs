@@ -24,8 +24,8 @@ namespace Gestion_Animaux
         public MainWindow()
         {
             InitializeComponent();
-            //listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
-            //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
+            listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
+            listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
         }
     }
 
