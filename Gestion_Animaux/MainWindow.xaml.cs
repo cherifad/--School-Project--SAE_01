@@ -20,12 +20,13 @@ namespace Gestion_Animaux
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
             InitializeComponent();
             //listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
             //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,6 +37,10 @@ namespace Gestion_Animaux
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void Switch_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 
