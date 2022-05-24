@@ -54,8 +54,8 @@ namespace Gestion_Animaux
                 tailleAnimal = value;
             }
         }
-        private TypeAnimal typeAnimal;
-        public TypeAnimal TypeAnimal
+        private int typeAnimal;
+        public int TypeAnimal
         {
             get
             {
@@ -83,10 +83,11 @@ namespace Gestion_Animaux
                         {
                             Animal unAnimal = new Animal();
                             unAnimal.IdAnimal = (int)reader.GetDecimal(0);
-                            unAnimal.NomAnimal = reader.GetString(1);
-                            unAnimal.PoidsAnimal = reader.GetDouble(2);
+                            unAnimal.TypeAnimal = (int)reader.GetDecimal(1);
+                            unAnimal.NomAnimal = reader.GetString(2);
                             unAnimal.TailleAnimal = reader.GetInt32(3);
-                            unAnimal.TypeAnimal = reader.GetFieldValue<TypeAnimal>(4);
+                            unAnimal.PoidsAnimal = (double)reader.GetDecimal(4);
+                            
                             listeAnimaux.Add(unAnimal);
                         }
                     }
@@ -100,7 +101,7 @@ namespace Gestion_Animaux
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Important Message");
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Animal");
             }
             return listeAnimaux;
         }

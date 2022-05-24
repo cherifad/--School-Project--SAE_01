@@ -30,8 +30,8 @@ namespace Gestion_Animaux
                 idAnimal = value;
             }
         }
-        private string dateAdoption;
-        public string DateAdoption
+        private DateTime dateAdoption;
+        public DateTime DateAdoption
         {
             get
             {
@@ -73,8 +73,11 @@ namespace Gestion_Animaux
                             Adoption uneAdoption = new Adoption();
                             uneAdoption.IdAdoptant = (int)reader.GetDecimal(0);
                             uneAdoption.IdAnimal = (int)reader.GetDecimal(1);
-                            uneAdoption.DateAdoption = reader.GetString(2);
-                            uneAdoption.CommentaireAdoption = reader.GetString(3);
+                            uneAdoption.DateAdoption = reader.GetDateTime(2);
+                            if (reader[3] == null)
+                                uneAdoption.CommentaireAdoption = reader.GetString(3);
+                            else
+                                uneAdoption.CommentaireAdoption = "";
                             listeAdoptions.Add(uneAdoption);
                         }
                     }
@@ -88,7 +91,7 @@ namespace Gestion_Animaux
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Important Message");
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoption");
             }
             return listeAdoptions;
         }

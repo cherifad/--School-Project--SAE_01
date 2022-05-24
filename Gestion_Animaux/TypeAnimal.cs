@@ -62,7 +62,7 @@ namespace Gestion_Animaux
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Important Message");
+                System.Windows.MessageBox.Show(ex.Message, "Important Message TypeAnimal");
             }
             return listeTypes;
         }
