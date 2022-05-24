@@ -27,6 +27,16 @@ namespace Gestion_Animaux
             listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
             listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 
 }

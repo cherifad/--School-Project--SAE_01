@@ -5,5 +5,12 @@
     xmlns:local="clr-namespace:Gestion_Animaux"
     Startup="lancementApplication"
     StartupUri="MainWindow.xaml">
-    <Application.Resources />
+
+    <Application.Resources>
+        <Style x:Key="Poppins">
+            <Setter Property="TextElement.FontFamily"
+            Value="./fonts/#Poppins" />
+        </Style>       
+        
+    </Application.Resources>
 </Application>
