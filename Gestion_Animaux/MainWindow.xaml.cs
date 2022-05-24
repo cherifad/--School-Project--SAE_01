@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace Gestion_Animaux
         public MainWindow()
         {
             InitializeComponent();
+            //listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
+            //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
         }
     }
+
 }
