@@ -5,11 +5,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Gestion_Animaux"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Gestion Animaux"
     x:Name="WindowMain"
+    Title="Gestion Animaux"
     MinWidth="800"
     MinHeight="500"
-    mc:Ignorable="d" Background="Transparent" WindowStyle="None" AllowsTransparency="True" Cursor="Pen">
+    AllowsTransparency="True"
+    Background="Transparent"
+    Cursor="Arrow"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -159,62 +164,175 @@
         </Style>
     </Window.Resources>
     <Border
-        CornerRadius="14"
+        Background="White"
         BorderThickness="2"
-        Background="Black">
+        CornerRadius="14">
+
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="30" MouseDown="OnDragMoveWindow" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image x:Name="MinimizeWindow" Height="24" Margin="0,-4,21,0" VerticalAlignment="Top" Source="/626e5ca7503de661fd73a46dfc9caf8e-removebg-preview.png" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="24"/>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="250" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0"
-            x:Name="ExitButton"
-            Margin="28,0,28,10"
-            Background="#FFCD0000"
-            Click="ExitButton_Click"
-            Content="Quitter"
-            FontFamily="Segoe UI Semibold"
-            FontSize="22"
-            Style="{DynamicResource ExitButtonStyle}" Foreground="White" Height="64" VerticalAlignment="Bottom" />
-                <Image
-            Height="179"
-            Margin="10,10,15,0"
-            VerticalAlignment="Top"
-            Source="/PNG-Animaux-Refuge.png" />
-                <Button
-            x:Name="Adoption"
-            Margin="10,185,15,0"
-            Content="Gerer Adoption"
-            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="16" Click="Adoption_Click" />
-                <Button
-            x:Name="Adoptant"
-            Margin="10,240,15,0"
-            Content="Gerer Adoptants"
-            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
-                <Button
-            x:Name="Animaux"
-            Height="45"
-            Margin="10,295,15,0"
-            VerticalAlignment="Top"
-            Content="Gérer Animaux"
-            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
-                <Button
-            x:Name="Espece"
-            Height="45"
-            Margin="10,350,15,0"
-            VerticalAlignment="Top"
-            Content="Gerer Espèces"
-            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
 
-                <Label Content="Label" Grid.Column="1" HorizontalAlignment="Left" Height="9" Margin="370,465,0,0" VerticalAlignment="Top" Width="170" Foreground="White" Background="{x:Null}"/>
-                <Frame Name="MainFrame" Grid.Column="1"/>
-            </Grid>
+            <Border
+                Grid.Row="1"
+                Background="#fefee2"
+                CornerRadius="0 0 14 14">
+
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        x:Name="ExitButton"
+                        Grid.Column="0"
+                        Height="64"
+                        Margin="28,0,28,10"
+                        VerticalAlignment="Bottom"
+                        Background="#FFCD0000"
+                        Click="ExitButton_Click"
+                        Content="Quitter"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="22"
+                        Foreground="White"
+                        Style="{DynamicResource ExitButtonStyle}" />
+                    <Image
+                        Height="179"
+                        Margin="10,10,15,0"
+                        VerticalAlignment="Top"
+                        Source="/PNG-Animaux-Refuge.png" />
+                    <Button
+                        x:Name="Adoption"
+                        Height="45"
+                        Margin="10,185,15,0"
+                        VerticalAlignment="Top"
+                        Background="#FF238636"
+                        Click="Adoption_Click"
+                        Content="Gerer Adoption"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{DynamicResource ButtonStyle1}" />
+                    <Button
+                        x:Name="Adoptant"
+                        Height="45"
+                        Margin="10,240,15,0"
+                        VerticalAlignment="Top"
+                        Background="#FF238636"
+                        Content="Gerer Adoptants"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{DynamicResource ButtonStyle1}" />
+                    <Button
+                        x:Name="Animaux"
+                        Height="45"
+                        Margin="10,295,15,0"
+                        VerticalAlignment="Top"
+                        Background="#FF238636"
+                        Content="Gérer Animaux"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{DynamicResource ButtonStyle1}" />
+                    <Button
+                        x:Name="Espece"
+                        Height="45"
+                        Margin="10,350,15,0"
+                        VerticalAlignment="Top"
+                        Background="#FF238636"
+                        Content="Gerer Espèces"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="16"
+                        Foreground="White"
+                        Style="{DynamicResource ButtonStyle1}" />
+
+                    <Label
+                        Grid.Column="1"
+                        Width="170"
+                        Height="9"
+                        Margin="370,465,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{x:Null}"
+                        Content="Label"
+                        Foreground="White" />
+                    <Frame Name="MainFrame" Grid.Column="1" />
+                </Grid>
+            </Border>
+            <Ellipse
+                x:Name="exit"
+                Width="20"
+                Height="20"
+                Margin="0,0,11,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Fill="#FFFD605E"
+                MouseLeftButtonDown="exit_MouseLeftButtonDown">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+            <Ellipse
+                x:Name="maximize"
+                Width="20"
+                Height="20"
+                Margin="0,0,36,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Fill="#FFF8BD39"
+                MouseLeftButtonDown="maximize_MouseLeftButtonDown">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+            <Ellipse
+                x:Name="minimize"
+                Width="20"
+                Height="20"
+                Margin="0,0,61,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Fill="#FF38C44A"
+                MouseLeftButtonDown="minimize_MouseLeftButtonDown">
+                <Ellipse.Style>
+                    <Style TargetType="Ellipse">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Stroke" Value="#FF807E7E" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Ellipse.Style>
+            </Ellipse>
+            <Rectangle
+                x:Name="statusBar"
+                Height="30"
+                Margin="0,0,86,0"
+                VerticalAlignment="Center"
+                MouseLeftButtonDown="statusBar_MouseLeftButtonDown" />
+            <Label
+                Width="118"
+                Margin="10,0,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="SUPER APP"
+                FontFamily="Segoe UI Semibold" />
 
 
 

@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="626e5ca7503de661fd73a46dfc9caf8e-removebg-preview.png" />
     <None Remove="content\PNG-Animaux-Refuge.png" />
+    <None Remove="fermer.png" />
     <None Remove="PNG-Animaux-Refuge.png" />
   </ItemGroup>
 
@@ -21,6 +22,7 @@
     <Resource Include="content\PNG-Animaux-Refuge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="fermer.png" />
     <Resource Include="PNG-Animaux-Refuge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

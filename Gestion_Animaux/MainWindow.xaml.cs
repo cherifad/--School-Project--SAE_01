@@ -54,6 +54,39 @@ namespace Gestion_Animaux
         {
             this.WindowMain.WindowState = WindowState.Minimized;
         }
+
+        private void fermer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowMain.WindowState = WindowState.Minimized;
+        }
+
+        private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowMain.DragMove();
+        }
+
+        private void exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void maximize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (this.WindowMain.WindowState == WindowState.Maximized)
+                this.WindowMain.WindowState = WindowState.Normal;
+            else
+                this.WindowMain.WindowState = WindowState.Maximized;
+        }
+
+        private void minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowMain.WindowState = WindowState.Minimized;
+        }
+
+        private void OnDragMoveWindow(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
     }
 
 }
