@@ -6,9 +6,10 @@
     xmlns:local="clr-namespace:Gestion_Animaux"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Gestion Animaux"
+    x:Name="WindowMain"
     MinWidth="800"
     MinHeight="500"
-    mc:Ignorable="d" Background="Transparent" WindowStyle="None" AllowsTransparency="True">
+    mc:Ignorable="d" Background="Transparent" WindowStyle="None" AllowsTransparency="True" Cursor="Pen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
@@ -158,15 +159,21 @@
         </Style>
     </Window.Resources>
     <Border
-        CornerRadius="24"
+        CornerRadius="14"
         BorderThickness="2"
         Background="Black">
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image x:Name="MinimizeWindow" Height="24" Margin="0,-4,21,0" VerticalAlignment="Top" Source="/626e5ca7503de661fd73a46dfc9caf8e-removebg-preview.png" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="24"/>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
             x:Name="ExitButton"
             Margin="28,0,28,10"
             Background="#FFCD0000"
@@ -175,37 +182,40 @@
             FontFamily="Segoe UI Semibold"
             FontSize="22"
             Style="{DynamicResource ExitButtonStyle}" Foreground="White" Height="64" VerticalAlignment="Bottom" />
-            <Image
+                <Image
             Height="179"
             Margin="10,10,15,0"
             VerticalAlignment="Top"
             Source="/PNG-Animaux-Refuge.png" />
-            <Button
+                <Button
             x:Name="Adoption"
             Margin="10,185,15,0"
             Content="Gerer Adoption"
             Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" Foreground="White" FontFamily="Segoe UI Semibold" FontSize="16" Click="Adoption_Click" />
-            <Button
+                <Button
             x:Name="Adoptant"
             Margin="10,240,15,0"
             Content="Gerer Adoptants"
             Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
-            <Button
+                <Button
             x:Name="Animaux"
             Height="45"
             Margin="10,295,15,0"
             VerticalAlignment="Top"
             Content="Gérer Animaux"
             Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
-            <Button
+                <Button
             x:Name="Espece"
             Height="45"
             Margin="10,350,15,0"
             VerticalAlignment="Top"
             Content="Gerer Espèces"
             Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
-            <Label Content="Label" Grid.Column="1" HorizontalAlignment="Left" Height="9" Margin="370,465,0,0" VerticalAlignment="Top" Width="170" Foreground="White" Background="{x:Null}"/>
-            <Frame Name="MainFrame" Grid.Column="1"/>
+
+                <Label Content="Label" Grid.Column="1" HorizontalAlignment="Left" Height="9" Margin="370,465,0,0" VerticalAlignment="Top" Width="170" Foreground="White" Background="{x:Null}"/>
+                <Frame Name="MainFrame" Grid.Column="1"/>
+            </Grid>
+
 
 
 

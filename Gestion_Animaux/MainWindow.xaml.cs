@@ -49,6 +49,11 @@ namespace Gestion_Animaux
             MainFrame.Navigate(new System.Uri("/Frames/AdoptionFrame.xaml",
              UriKind.RelativeOrAbsolute));
         }
+
+        private void MinimizeWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.WindowMain.WindowState = WindowState.Minimized;
+        }
     }
 
 }
