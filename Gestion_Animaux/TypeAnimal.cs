@@ -41,7 +41,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    reader = access.getData("select * from TypeAnimal;");
+                    reader = access.getData("select * from [iut-acy\\reydetb].TypeAnimal;");
                     if (reader.HasRows)
                     {
                         while (reader.Read())
