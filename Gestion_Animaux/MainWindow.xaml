@@ -164,10 +164,12 @@
         Background="Black">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image x:Name="MinimizeWindow" Height="24" Margin="0,-4,21,0" VerticalAlignment="Top" Source="/626e5ca7503de661fd73a46dfc9caf8e-removebg-preview.png" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="24"/>
+            <Image x:Name="MinimizeWindow" Height="30" Margin="0,0,60,0" VerticalAlignment="Top" Source="/4-03.jpg" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="30"/>
+            <Image x:Name="MaximizeWindow" Height="30" Margin="0,0,30,0" VerticalAlignment="Top" Source="/lapin-mignon-jouant-au-telephone-dessin-anime-vecteur-icone-illustration-animal-technologie-icone-co.jpg" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="30"/>
+            <Image x:Name="CloseWindow" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Source="/fermer.jpg" MouseLeftButtonDown="MinimizeWindow_MouseLeftButtonDown" HorizontalAlignment="Right" Width="30"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="250" />
@@ -210,7 +212,7 @@
             Margin="10,350,15,0"
             VerticalAlignment="Top"
             Content="Gerer Espèces"
-            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" />
+            Style="{DynamicResource ButtonStyle1}" Background="#FF238636" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="White" Click="Espece_Click" />
 
                 <Label Content="Label" Grid.Column="1" HorizontalAlignment="Left" Height="9" Margin="370,465,0,0" VerticalAlignment="Top" Width="170" Foreground="White" Background="{x:Null}"/>
                 <Frame Name="MainFrame" Grid.Column="1"/>

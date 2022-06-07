@@ -25,7 +25,7 @@ namespace Gestion_Animaux
         public MainWindow()
         {
             InitializeComponent();
-            //listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
+            
             //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
 
         }
@@ -53,6 +53,12 @@ namespace Gestion_Animaux
         private void MinimizeWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.WindowMain.WindowState = WindowState.Minimized;
+        }
+
+        private void Espece_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("/Frames/TypeAnimalFrame.xaml",
+             UriKind.RelativeOrAbsolute));
         }
     }
 

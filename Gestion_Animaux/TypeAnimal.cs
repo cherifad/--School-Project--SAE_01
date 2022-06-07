@@ -69,8 +69,22 @@ namespace Gestion_Animaux
 
         public void Create()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            //SqlDataAdapter writer;
+
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData("insert into [iut-acy\\reydetb].TypeAnimal (libelletype) values ('" + this.LibelleType + "')");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message TypeAnimal");
+            }
         }
+    
 
         public void Read()
         {
