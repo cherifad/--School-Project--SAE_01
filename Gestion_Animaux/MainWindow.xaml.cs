@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace Gestion_Animaux
 
         private void Adoption_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new System.Uri("AdoptionFrame.xaml",
+            MainFrame.Navigate(new System.Uri("/Frames/AdoptionFrame.xaml",
              UriKind.RelativeOrAbsolute));
         }
     }
