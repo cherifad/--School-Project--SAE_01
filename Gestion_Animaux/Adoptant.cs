@@ -109,7 +109,19 @@ namespace Gestion_Animaux
 
         public void Create()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData($"insert into [iut-acy\\reydetb].Adoptant (nomadoptant, prenomadoptant, teladoptant, mailadoptant) values ({this.NomAdoptant}, {this.PrenomAdoptant}, {this.TelAdoptant}, {this.MailAdoptant})");
+                }
+                access.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoptant");
+            }
         }
 
         public void Read()

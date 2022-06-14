@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page 
     x:Class="Gestion_Animaux.AdoptionFrame"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -8,9 +8,48 @@
     Title="AdoptionFrame"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="White"
     mc:Ignorable="d">
 
     <Grid>
-        <Label Content="Oui" Foreground="AliceBlue" />
+        <Label Foreground="Black" />
+        <Button
+            x:Name="suppr"
+            Width="64"
+            Height="22"
+            Margin="138,90,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Supprimer" />
+        <Button
+            x:Name="modif"
+            Width="239"
+            Height="32"
+            Margin="50,37,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Valider les modifications" FontSize="20"/>
+        <ListView x:Name="listeAdoption" Margin="345,37,62,87">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn
+                        Width="70"
+                        DisplayMemberBinding="{Binding IdAdoptant}"
+                        Header="IdAdoptant"/>
+                    <GridViewColumn
+                        Width="70"
+                        DisplayMemberBinding="{Binding IdAnimal}"
+                        Header="IdAnimal" />
+                    <GridViewColumn
+                        Width="100"
+                        DisplayMemberBinding="{Binding DateAdoption, StringFormat=d}"
+                        Header="DateAdoption" />
+                    <GridViewColumn
+                        Width="110"
+                        DisplayMemberBinding="{Binding CommentaireAdoption}"
+                        Header="Commentaire" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

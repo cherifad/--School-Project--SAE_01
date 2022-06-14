@@ -74,8 +74,10 @@ namespace Gestion_Animaux
                             uneAdoption.IdAdoptant = (int)reader.GetDecimal(0);
                             uneAdoption.IdAnimal = (int)reader.GetDecimal(1);
                             uneAdoption.DateAdoption = reader.GetDateTime(2);
-                            if (reader[3] == null)
+                            if (!reader.IsDBNull(3))
+                            {
                                 uneAdoption.CommentaireAdoption = reader.GetString(3);
+                            }
                             else
                                 uneAdoption.CommentaireAdoption = "";
                             listeAdoptions.Add(uneAdoption);
@@ -98,7 +100,19 @@ namespace Gestion_Animaux
 
         public void Create()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData($"insert into [iut-acy\\reydetb].Adoption (idadoptant, idanimal, dateadoption, commentaireadoption) values ({this.IdAdoptant}, {this.IdAnimal}, {this.DateAdoption}, {this.CommentaireAdoption})");
+                }
+                access.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoption");
+            }
         }
 
         public void Read()
@@ -108,12 +122,36 @@ namespace Gestion_Animaux
 
         public void Update()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = {this.IdAdoptant}, idanimal = {this.IdAnimal}, dateadoption = {this.DateAdoption}, commentaireadoption = {this.CommentaireAdoption}");
+                }
+                access.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoption");
+            }
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData($"delete from [iut-acy\\reydetb].Adoption where idadoptant = {this.IdAdoptant}");
+                }
+                access.closeConnection();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoption");
+            }
         }
 
         public List<Adoption> FindBySelection(string criteres)

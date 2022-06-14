@@ -21,6 +21,11 @@ namespace Gestion_Animaux
         public AdoptionFrame()
         {
             InitializeComponent();
+            listeAdoption.ItemsSource = ApplicationData.listeAdoptions;
+            listeAdoption.SelectedIndex = 0;
+            
         }
+
+        
     }
 }
