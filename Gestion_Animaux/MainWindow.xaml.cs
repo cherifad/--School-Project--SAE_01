@@ -25,8 +25,6 @@ namespace Gestion_Animaux
         public MainWindow()
         {
             InitializeComponent();
-            
-            //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
 
         }
 
