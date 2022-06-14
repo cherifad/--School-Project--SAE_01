@@ -100,6 +100,12 @@ namespace Gestion_Animaux
                 , null);
             }
         }
+
+        private void Animaux_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("/Frames/Animaux/GestionAnimaux.xaml",
+             UriKind.RelativeOrAbsolute));
+        }
     }
 
 }

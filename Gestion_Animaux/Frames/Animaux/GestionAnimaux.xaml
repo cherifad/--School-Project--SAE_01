@@ -1,20 +1,15 @@
-﻿<Window
-    x:Class="Gestion_Animaux.MainWindow"
+﻿<Page
+    x:Class="Gestion_Animaux.Frames.Animaux.GestionAnimaux"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Gestion_Animaux.Frames.Animaux"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="WindowMain"
-    Title="Gestion Animaux"
-    MinWidth="800"
-    MinHeight="500"
-    AllowsTransparency="False"
-    Background="Transparent"
-    Cursor="Arrow"
-    WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
-    mc:Ignorable="d">
-    <Window.Resources>
+    Title="GestionAnimaux"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d" MouseLeftButtonDown="Page_MouseLeftButtonDown">
+    <Page.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -161,174 +156,67 @@
                 </Setter.Value>
             </Setter>
         </Style>
-    </Window.Resources>
+    </Page.Resources>
 
-
-        <Border
-        Background="White"
-        BorderThickness="2"
-        CornerRadius="14">
-
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Border
-                Grid.Row="1"
-                Background="#fefee2"
-                CornerRadius="0 0 14 14">
-
-                <Grid Grid.Row="1">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="250"/>
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
-                        Height="179"
-                        Margin="10,10,15,0"
-                        VerticalAlignment="Top"
-                        Source="/PNG-Animaux-Refuge.png" />
-                    <Button
-                        x:Name="Adoption"
-                        Height="45"
-                        Margin="10,185,15,0"
-                        VerticalAlignment="Top"
-                        Background="#FF238636"
-                        Click="Adoption_Click"
-                        Content="Gerer Adoption"
-                        FontFamily="Segoe UI Semibold"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle1}" />
-                    <Button
-                        x:Name="Adoptant"
-                        Height="45"
-                        Margin="10,240,15,0"
-                        VerticalAlignment="Top"
-                        Background="#FF238636"
-                        Content="Gerer Adoptants"
-                        FontFamily="Segoe UI Semibold"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle1}" />
-                    <Button
-                        x:Name="Animaux"
-                        Height="45"
-                        Margin="10,295,15,0"
-                        VerticalAlignment="Top"
-                        Background="#FF238636"
-                        Content="Gérer Animaux"
-                        FontFamily="Segoe UI Semibold"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle1}" Click="Animaux_Click" />
-                    <Button
-                        x:Name="Espece"
-                        Height="45"
-                        Margin="10,350,15,0"
-                        VerticalAlignment="Top"
-                        Background="#FF238636"
-                        Content="Gerer Espèces"
-                        FontFamily="Segoe UI Semibold"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle1}" />
-
-                    <Label
-                        Grid.Column="1"
-                        Width="170"
-                        Height="9"
-                        Margin="370,465,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Background="{x:Null}"
-                        Content="Label"
-                        Foreground="White" />
-                    <Frame Name="MainFrame" Grid.Column="1" />
-                </Grid>
-            </Border>
-            <Ellipse
-                x:Name="exit"
-                Width="20"
-                Height="20"
-                Margin="0,0,11,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Fill="#FFFD605E"
-                MouseLeftButtonDown="exit_MouseLeftButtonDown">
-                <Ellipse.Style>
-                    <Style TargetType="Ellipse">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Stroke" Value="Black" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Ellipse.Style>
-            </Ellipse>
-            <Ellipse
-                x:Name="maximize"
-                Width="20"
-                Height="20"
-                Margin="0,0,36,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Fill="#FFF8BD39"
-                MouseLeftButtonDown="maximize_MouseLeftButtonDown">
-                <Ellipse.Style>
-                    <Style TargetType="Ellipse">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Stroke" Value="#FF807E7E" />
-                                <Setter Property="Height" Value="22"/>
-                                <Setter Property="Width" Value="22"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Ellipse.Style>
-            </Ellipse>
-            <Ellipse
-                x:Name="minimize"
-                Width="20"
-                Height="20"
-                Margin="0,0,61,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Fill="#FF38C44A"
-                MouseLeftButtonDown="minimize_MouseLeftButtonDown">
-                <Ellipse.Style>
-                    <Style TargetType="Ellipse">
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Stroke" Value="#FF807E7E" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Ellipse.Style>
-            </Ellipse>
-            <Rectangle
-                RadiusX="14"
-                RadiusY="14"
-                Fill="White"
-                x:Name="statusBar"
-                Height="30"
-                Margin="0,0,86,0"
-                VerticalAlignment="Center"
-                MouseLeftButtonDown="statusBar_MouseLeftButtonDown"/>
-            <Label
-                Width="118"
-                Margin="10,0,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="SUPER APP"
-                FontFamily="Segoe UI Semibold" />
-
-
-
-
-        </Grid>
-    </Border>
-</Window>
+    <Grid>
+        <DataGrid
+            x:Name="DGAnimaux"
+            Margin="0,0,249,0"
+            CanUserAddRows="False"
+            ItemsSource="{Binding ListeAnimaux}" CurrentCellChanged="DGAnimaux_CurrentCellChanged" />
+        <Button
+            x:Name="Valider"
+            Width="231"
+            Height="46"
+            Margin="0,284,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF238636"
+            Content="Valider les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Annuler"
+            Width="231"
+            Height="45"
+            Margin="0,339,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Annuler les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Ajouter"
+            Width="231"
+            Height="45"
+            Margin="0,225,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF00FBD9"
+            Content="Ajouter un animal"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Supprimer"
+            Width="231"
+            Height="45"
+            Margin="0,395,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Supprimer"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            IsEnabled="False"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Label x:Name="select" Content="Label" HorizontalAlignment="Left" Margin="633,104,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
