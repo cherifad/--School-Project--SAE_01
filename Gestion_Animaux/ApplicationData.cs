@@ -38,5 +38,10 @@ namespace Gestion_Animaux
             listeTypeAnimal = unType.FindAll();
             listeAnimaux = unAnimal.FindAll();
         }
+        public static void UpdateTypeAnimal()
+        {
+            TypeAnimal unType = new TypeAnimal();
+            listeTypeAnimal = unType.FindAll();
+        }
     }
 }

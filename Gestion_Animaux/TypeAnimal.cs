@@ -6,6 +6,13 @@ namespace Gestion_Animaux
 {
     public class TypeAnimal : Crud<TypeAnimal>
     {
+        public TypeAnimal(string libelleType)
+        {
+            this.LibelleType = libelleType;
+        }
+        public TypeAnimal()
+        {
+        }
         private int idType;
         public int IdType
         {
