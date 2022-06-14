@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+using System.Windows.Threading;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -62,7 +62,10 @@ namespace Gestion_Animaux
 
         private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.WindowMain.DragMove();
+            if (this.WindowMain.WindowState == WindowState.Maximized)
+                this.WindowMain.WindowState = WindowState.Normal;
+            else
+                this.WindowMain.DragMove();
         }
 
         private void exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -80,12 +83,22 @@ namespace Gestion_Animaux
 
         private void minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            WindowStyle = WindowStyle.SingleBorderWindow;
             this.WindowMain.WindowState = WindowState.Minimized;
         }
 
-        private void OnDragMoveWindow(object sender, MouseButtonEventArgs e)
+        protected override void OnActivated(EventArgs e)
         {
-            Application.Current.MainWindow.DragMove();
+            base.OnActivated(e);
+            if (WindowStyle != WindowStyle.None)
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (DispatcherOperationCallback)delegate (object unused)
+                {
+                    WindowStyle = WindowStyle.None;
+                    return null;
+                }
+                , null);
+            }
         }
     }
 

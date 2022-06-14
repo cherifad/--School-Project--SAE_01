@@ -14,7 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.3.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CustomChromeLibrary">
+      <HintPath>D:\adlen\Download\WpfCustomChromeSampleBin\CustomChromeLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
