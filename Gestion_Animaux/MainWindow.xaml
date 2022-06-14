@@ -8,7 +8,7 @@
     Title="Gestion Animaux"
     MinWidth="800"
     MinHeight="500"
-    AllowsTransparency="False"
+    AllowsTransparency="True"
     Background="Transparent"
     Cursor="Arrow"
     WindowStartupLocation="CenterScreen"

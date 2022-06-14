@@ -7,10 +7,12 @@
     StartupUri="MainWindow.xaml">
 
     <Application.Resources>
-        <Style x:Key="Poppins">
-            <Setter Property="TextElement.FontFamily"
-            Value="./fonts/#Poppins" />
-        </Style>       
-        
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="content/StylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
     </Application.Resources>
 </Application>

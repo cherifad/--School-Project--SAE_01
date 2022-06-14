@@ -28,6 +28,9 @@ namespace Gestion_Animaux
             //listviewTypeAnimal.ItemsSource = ApplicationData.listeTypeAnimal;
             //listviewAdoptant.ItemsSource = ApplicationData.listeAdoptants;
 
+            MainFrame.Navigate(new System.Uri("/Frames/Main/Main.xaml",
+             UriKind.RelativeOrAbsolute));
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
