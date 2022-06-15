@@ -21,11 +21,17 @@ namespace Gestion_Animaux
         public AdoptionFrame()
         {
             InitializeComponent();
-            listeAdoption.ItemsSource = ApplicationData.listeAdoptions;
-            listeAdoption.SelectedIndex = 0;
+            listeAdopt.ItemsSource = ApplicationData.listeAdoptions;
+            this.DataContext = this;
             
         }
 
-        
+        private void suppr_Click(object sender, RoutedEventArgs e)
+        {
+            ApplicationData.listeAdoptions.Remove((Adoption)listeAdopt.SelectedItem);
+            listeAdopt.Items.Refresh();
+            //Gestion_Animaux.Adoption adoption = new Adoption(listeAdopt.SelectedValue);
+            
+        }
     }
 }
