@@ -38,15 +38,19 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void DGAnimaux_CurrentCellChanged(object sender, EventArgs e)
         {
-            DGAnimaux.Focus();
-            this.select.Content = DGAnimaux.SelectedItems.Count.ToString();
-
-            if (DGAnimaux.SelectedCells.Count < 0)
-                this.Supprimer.IsEnabled = true;
+            this.select.Content = DGAnimaux.SelectedIndex.ToString();
         }
 
         private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+        }
+
+        private void DGAnimaux_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DGAnimaux.SelectedIndex == -1)
+                this.Supprimer.IsEnabled = false;
+            else
+                this.Supprimer.IsEnabled = true;
         }
     }
 }

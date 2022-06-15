@@ -22,6 +22,8 @@ namespace Gestion_Animaux
     /// </summary>
     public partial class MainWindow : Window
     {        
+
+        private bool mRestoreIfMove = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +34,6 @@ namespace Gestion_Animaux
              UriKind.RelativeOrAbsolute));
 
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
@@ -63,14 +64,6 @@ namespace Gestion_Animaux
             this.WindowMain.WindowState = WindowState.Minimized;
         }
 
-        private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (this.WindowMain.WindowState == WindowState.Maximized)
-                this.WindowMain.WindowState = WindowState.Normal;
-            else
-                this.WindowMain.DragMove();
-        }
-
         private void exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
@@ -78,15 +71,11 @@ namespace Gestion_Animaux
 
         private void maximize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (this.WindowMain.WindowState == WindowState.Maximized)
-                this.WindowMain.WindowState = WindowState.Normal;
-            else
-                this.WindowMain.WindowState = WindowState.Maximized;
+            MaxMin();
         }
 
         private void minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            WindowStyle = WindowStyle.SingleBorderWindow;
             this.WindowMain.WindowState = WindowState.Minimized;
         }
 
@@ -109,6 +98,90 @@ namespace Gestion_Animaux
             MainFrame.Navigate(new System.Uri("/Frames/Animaux/GestionAnimaux.xaml",
              UriKind.RelativeOrAbsolute));
         }
+
+        private void statusBar_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if ((ResizeMode == ResizeMode.CanResize) || (ResizeMode == ResizeMode.CanResizeWithGrip))
+                {
+                    MaxMin();
+                }
+
+                return;
+            }
+
+            else if (WindowState == WindowState.Maximized)
+            {
+                mRestoreIfMove = true;
+                return;
+            }
+
+            DragMove();
+        }
+
+        private bool IsMaximized()
+        {
+            bool value = false;
+            if (
+                WindowMain.Left == SystemParameters.WorkArea.Left &&
+                WindowMain.Top == SystemParameters.WorkArea.Top &&
+                WindowMain.Height == SystemParameters.WorkArea.Height &&
+                WindowMain.Width == SystemParameters.WorkArea.Width)
+                value = true;
+
+            return value;
+        }
+
+        private void MaxMin()
+        {
+            if (IsMaximized())
+            {
+                this.WindowMain.Height = this.WindowMain.MinHeight;
+                this.WindowMain.Width = this.WindowMain.MinWidth;
+            }
+            else if (this.WindowMain.WindowState == WindowState.Maximized)
+                this.WindowMain.WindowState = WindowState.Normal;
+            else
+            {
+                WindowMain.Left = SystemParameters.WorkArea.Left;
+                WindowMain.Top = SystemParameters.WorkArea.Top;
+                WindowMain.Height = SystemParameters.WorkArea.Height;
+                WindowMain.Width = SystemParameters.WorkArea.Width;
+            }
+        }
+
+        private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            /* 如何在Window.ResizeMode属性为CanResize的时候，阻止窗口拖动到屏幕边缘自动最大化。
+               (When the Window.ResizeMode property is CanResize, 
+               when the window is dragged to the edge of the screen, 
+               it prevents the window from automatically maximizing.)*/
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (Mouse.LeftButton == MouseButtonState.Pressed)
+                {
+                    var windowMode = this.ResizeMode;
+                    if (this.WindowMain.ResizeMode != ResizeMode.NoResize)
+                    {
+                        this.WindowMain.ResizeMode = ResizeMode.NoResize;
+                    }
+
+                    this.UpdateLayout();
+
+
+                    DragMove();
+
+
+                    if (this.WindowMain.ResizeMode != windowMode)
+                    {
+                        this.WindowMain.ResizeMode = windowMode;
+                    }
+
+                    this.UpdateLayout();
+                }
+            }
+    }
     }
 
 }
