@@ -43,6 +43,19 @@ namespace Gestion_Animaux
             }
         }
         private string commentaireAdoption;
+
+        public Adoption(int idAdoptant, int idAnimal, DateTime dateAdoption, string commentaireAdoption)
+        {
+            IdAdoptant = idAdoptant;
+            IdAnimal = idAnimal;
+            DateAdoption = dateAdoption;
+            CommentaireAdoption = commentaireAdoption;
+        }
+
+        public Adoption()
+        {
+        }
+
         public string CommentaireAdoption
         {
             get
@@ -105,7 +118,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    access.setData($"insert into [iut-acy\\reydetb].Adoption (idadoptant, idanimal, dateadoption, commentaireadoption) values ({this.IdAdoptant}, {this.IdAnimal}, {this.DateAdoption}, {this.CommentaireAdoption})");
+                    access.setData($"insert into [iut-acy\\reydetb].Adoption (idadoptant, idanimal, dateadoption, commentaireadoption) values ('{this.IdAdoptant}', '{this.IdAnimal}', '{this.DateAdoption}', '{this.CommentaireAdoption}')");
                 }
                 access.closeConnection();
             }
@@ -127,7 +140,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = {this.IdAdoptant}, idanimal = {this.IdAnimal}, dateadoption = {this.DateAdoption}, commentaireadoption = {this.CommentaireAdoption}");
+                    access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}'");
                 }
                 access.closeConnection();
             }
@@ -144,7 +157,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    access.setData($"delete from [iut-acy\\reydetb].Adoption where idadoptant = {this.IdAdoptant}");
+                    access.setData($"delete from [iut-acy\\reydetb].Adoption where idadoptant = '{this.IdAdoptant}'");
                 }
                 access.closeConnection();
             }

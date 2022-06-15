@@ -8,48 +8,42 @@
     Title="AdoptionFrame"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Background="White"
     mc:Ignorable="d">
 
     <Grid>
-        <Label Foreground="Black" />
+
         <Button
             x:Name="suppr"
-            Width="64"
-            Height="22"
-            Margin="138,90,0,0"
+            Width="148"
+            Height="34"
+            Margin="583,225,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Supprimer" />
+            Content="Supprimer" FontSize="20" Style="{DynamicResource ButtonStyle1}" Click="suppr_Click"/>
         <Button
-            x:Name="modif"
-            Width="239"
-            Height="32"
-            Margin="50,37,0,0"
+            x:Name="valider"
+            Width="240"
+            Height="35"
+            Margin="538,395,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Content="Valider les modifications"
-            FontSize="20" />
-        <ListView x:Name="listeAdoption" Margin="345,37,62,87">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn
-                        Width="70"
-                        DisplayMemberBinding="{Binding IdAdoptant}"
-                        Header="IdAdoptant" />
-                    <GridViewColumn
-                        Width="70"
-                        DisplayMemberBinding="{Binding IdAnimal}"
-                        Header="IdAnimal" />
-                    <GridViewColumn
-                        Width="100"
-                        DisplayMemberBinding="{Binding DateAdoption, StringFormat=d}"
-                        Header="DateAdoption" />
-                    <GridViewColumn
-                        Width="110"
-                        DisplayMemberBinding="{Binding CommentaireAdoption}"
-                        Header="Commentaire" />
-                </GridView>
-            </ListView.View>
-        </ListView>
+            Content="Valider les modifications" FontSize="20" Style="{DynamicResource ButtonStyle1}"/>
+        <Button
+            x:Name="ajout"
+            Width="240"
+            Height="39"
+            Margin="535,160,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Ajouter une adoption" FontSize="20" Style="{DynamicResource ButtonStyle1}"/>
+        <DataGrid Margin="20,20,0,20" x:Name="listeAdopt" AutoGenerateColumns="False" HorizontalAlignment="Left" Width="485">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="90" Header="IdAdoptant" Binding="{Binding IdAdoptant}" FontSize="14"/>
+                <DataGridTextColumn Width="90" Header="IdAnimal" Binding="{Binding IdAnimal}" FontSize="14"/>
+                <DataGridTextColumn Width="120" Header="DateAdoption" Binding="{Binding DateAdoption, StringFormat=d}" FontSize="14"/>
+                <DataGridTextColumn Width="*" Header="Commentaire" Binding="{Binding CommentaireAdoption}" FontSize="14"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>
