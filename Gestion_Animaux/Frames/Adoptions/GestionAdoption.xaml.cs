@@ -39,9 +39,15 @@ namespace Gestion_Animaux.Frames.Adoptions
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
             DGAdoption.Visibility = Visibility.Hidden;
-            Label_Ajouter.Visibility = Visibility.Visible;
-            Entrer_Espece.Visibility = Visibility.Visible;
+            SelectDate.Visibility = Visibility.Visible;
+            Label_Adoptant.Visibility = Visibility.Visible;
+            Label_Animaux.Visibility = Visibility.Visible;
+            Label_Date.Visibility = Visibility.Visible;
+            Liste_Adoptants.Visibility = Visibility.Visible;
+            Liste_Animaux.Visibility = Visibility.Visible;
             Button_Ajouter_Valider.Visibility = Visibility.Visible;
+            Entrer_Commentaire.Visibility = Visibility.Visible;
+            Label_Commentaire.Visibility = Visibility.Visible;
         }
         public void Update()
         {
@@ -56,21 +62,42 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         private void Button_Ajouter_Valider_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Entrer_Espece.Text))
+            if (String.IsNullOrEmpty(SelectDate.SelectedDate.Value.ToShortDateString()))
             {
-                Entrer_Espece.BorderBrush = Brushes.Red;
+                SelectDate.BorderBrush = Brushes.Red;
+            }
+            else if(Liste_Adoptants.SelectedItem == null)
+            {
+                Liste_Adoptants.BorderBrush = Brushes.Red;
+            }
+            else if (Liste_Animaux.SelectedItem == null)
+            {
+                Liste_Animaux.BorderBrush = Brushes.Red;
             }
             else
             {
-                Adoption animal = new Adoption(Entrer_Espece.Text);
+                Adoption animal = new Adoption(((Adoptant)(Liste_Adoptants.SelectedItem)).IdAdoptant, ((Animal)(Liste_Animaux.SelectedItem)).IdAnimal, SelectDate.SelectedDate.Value, Entrer_Commentaire.Text);
                 animal.Create();
 
-                DGAdoption.Visibility = Visibility.Visible;
-                Label_Ajouter.Visibility = Visibility.Hidden;
-                Entrer_Espece.Visibility = Visibility.Hidden;
+                DGAdoption.Visibility = Visibility.Hidden;
+                SelectDate.Visibility = Visibility.Hidden;
+                Label_Adoptant.Visibility = Visibility.Hidden;
+                Label_Animaux.Visibility = Visibility.Hidden;
+                Label_Date.Visibility = Visibility.Hidden;
+                Liste_Adoptants.Visibility = Visibility.Hidden;
+                Liste_Animaux.Visibility = Visibility.Hidden;
+                Entrer_Commentaire.Visibility = Visibility.Hidden;
+                Label_Commentaire.Visibility = Visibility.Hidden;
                 Button_Ajouter_Valider.Visibility = Visibility.Hidden;
-                Entrer_Espece.Text = "";
-                Entrer_Espece.BorderBrush = Brushes.Gray;
+
+                SelectDate.SelectedDate = null;
+                SelectDate.BorderBrush = Brushes.Gray;
+                Liste_Adoptants.SelectedItem = -1;
+                Liste_Adoptants.BorderBrush = Brushes.Gray;
+                Liste_Animaux.SelectedItem = -1;
+                Liste_Animaux.SelectedItem = Brushes.Gray;
+                Entrer_Commentaire.Text = "";
+
                 this.Update();
             }
         }
@@ -134,5 +161,6 @@ namespace Gestion_Animaux.Frames.Adoptions
         {
             this.Update();
         }
+
     }
 }

@@ -71,7 +71,7 @@
             x:Name="Label_Adoptant"
             Grid.Row="1"
             Width="150"
-            Margin="75,50"
+            Margin="30,50"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Adoptant :"
@@ -81,14 +81,14 @@
             x:Name="Liste_Adoptants"
             Width="100"
             Height="20"
-            Margin="100,90"
+            Margin="30,90"
             HorizontalAlignment="Left"
             VerticalAlignment="Top" />
         <Label
             x:Name="Label_Animaux"
             Grid.Row="1"
             Width="150"
-            Margin="300,50"
+            Margin="200,50"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Animal :"
@@ -98,15 +98,47 @@
             x:Name="Liste_Animaux"
             Width="100"
             Height="20"
-            Margin="325,90"
+            Margin="200,90"
             HorizontalAlignment="Left"
             VerticalAlignment="Top" />
+        <Label
+            x:Name="Label_Date"
+            Width="150"
+            Margin="370,50"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Date :"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16" />
+        <DatePicker
+            x:Name="SelectDate"
+            Width="100"
+            Height="20"
+            Margin="370,90"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Label
+            x:Name="Label_Commentaire"
+            Width="150"
+            Margin="150,140"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Commentaire :"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16" />
+        <TextBox
+            x:Name="Entrer_Commentaire"
+            Width="200"
+            Height="60"
+            Margin="150,170"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+
         <Button
             x:Name="Button_Ajouter_Valider"
-            Grid.Row="2"
             Width="100"
             Height="30"
-            Margin="230,200"
+            Margin="200,300"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Background="#FF00FBD9"
@@ -114,8 +146,7 @@
             Content="Valider"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
-            Style="{DynamicResource ButtonStyle1}"
-            Visibility="Hidden" />
+            Style="{DynamicResource ButtonStyle1}" />
         <DataGrid
             x:Name="DGAdoption"
             Height="420"
@@ -127,7 +158,6 @@
             CanUserAddRows="False"
             CellEditEnding="DGAdoption_CellEditEnding"
             ColumnWidth="*"
-            CurrentCellChanged="DGAdoption_CurrentCellChanged"
             ItemsSource="{Binding ListeAdoption}"
             RowBackground="Transparent"
             SelectionChanged="DGAdoption_SelectionChanged"

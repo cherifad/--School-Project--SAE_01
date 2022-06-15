@@ -114,7 +114,6 @@
             CanUserAddRows="False"
             CellEditEnding="DGTypeAnimal_CellEditEnding"
             ColumnWidth="*"
-            CurrentCellChanged="DGTypeAnimal_CurrentCellChanged"
             ItemsSource="{Binding ListeTypeAnimal}"
             RowBackground="Transparent"
             SelectionChanged="DGTypeAnimal_SelectionChanged"

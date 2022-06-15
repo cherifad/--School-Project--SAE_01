@@ -21,7 +21,6 @@
             BorderThickness="2"
             CanUserAddRows="False"
             CellEditEnding="DGAnimaux_CellEditEnding"
-            CurrentCellChanged="DGAnimaux_CurrentCellChanged"
             ItemsSource="{Binding ListeAnimaux}"
             RowBackground="Transparent"
             SelectionChanged="DGAnimaux_SelectionChanged"
