@@ -1,0 +1,107 @@
+﻿<Page
+    x:Class="Gestion_Animaux.Frames.Animaux.GestionAnimaux"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Gestion_Animaux.Frames.Animaux"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="GestionAnimaux"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid>
+        <DataGrid
+            x:Name="DGAnimaux"
+            Margin="0,20,249,0"
+            Background="Transparent"
+            BorderThickness="2"
+            CanUserAddRows="False"
+            CurrentCellChanged="DGAnimaux_CurrentCellChanged"
+            ItemsSource="{Binding ListeAnimaux}"
+            RowBackground="Transparent"
+            SelectionChanged="DGAnimaux_SelectionChanged"
+            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" Height="420" VerticalAlignment="Top" Padding="15">
+
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGrid}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type DataGrid}">
+                                <Border Background="Red" CornerRadius="5">
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn
+                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
+                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                    Header="IsSelected" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button
+            x:Name="Valider"
+            Width="231"
+            Height="46"
+            Margin="0,284,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF238636"
+            Content="Valider les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Annuler"
+            Width="231"
+            Height="45"
+            Margin="0,339,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Annuler les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Ajouter"
+            Width="231"
+            Height="45"
+            Margin="0,225,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF00FBD9"
+            Content="Ajouter un animal"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Button
+            x:Name="Supprimer"
+            Width="231"
+            Height="45"
+            Margin="0,395,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Supprimer"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            IsEnabled="False"
+            Style="{DynamicResource ButtonStyle1}" />
+        <Label
+            x:Name="select"
+            Margin="633,104,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Label" />
+    </Grid>
+</Page>
