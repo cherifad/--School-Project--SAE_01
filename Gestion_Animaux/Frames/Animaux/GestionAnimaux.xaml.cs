@@ -83,6 +83,16 @@ namespace Gestion_Animaux.Frames.Animaux
             List<Animal> diff = new List<Animal>();
 
             modifsListe.Sort(Animal.CompareById);
+            ApplicationData.listeAnimaux.Sort(Animal.CompareById);
+
+            List<int> index = new List<int>();
+
+
+            for (int i = 0; i < modifsListe.Count; i++)
+            {
+                if (modifsListe[i] != ApplicationData.listeAnimaux[i])
+                    index.Add(i);
+            }
 
 
 
