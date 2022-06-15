@@ -20,11 +20,12 @@
             Background="Transparent"
             BorderThickness="2"
             CanUserAddRows="False"
+            CellEditEnding="DGAnimaux_CellEditEnding"
             CurrentCellChanged="DGAnimaux_CurrentCellChanged"
             ItemsSource="{Binding ListeAnimaux}"
             RowBackground="Transparent"
             SelectionChanged="DGAnimaux_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" CellEditEnding="DGAnimaux_CellEditEnding">
+            Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGrid}">
@@ -54,11 +55,12 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Background="#FF238636"
+            Click="Valider_Click"
             Content="Valider les mofifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" Click="Valider_Click" />
+            Style="{DynamicResource ButtonStyle1}" />
         <Button
             x:Name="Annuler"
             Width="231"
@@ -99,13 +101,6 @@
             Foreground="White"
             IsEnabled="False"
             Style="{DynamicResource ButtonStyle1}" />
-        <Label
-            x:Name="select"
-            Margin="0,59,106,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Content="Label" />
-
         <ToggleButton
             x:Name="modifs"
             Width="70"

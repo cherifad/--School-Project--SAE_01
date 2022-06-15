@@ -112,5 +112,9 @@ namespace Gestion_Animaux
         {
             throw new NotImplementedException();
         }
+        public static int CompareById(TypeAnimal value1, TypeAnimal value2)
+        {
+            return value1.IdType.CompareTo(value2.IdType);
+        }
     }
 }

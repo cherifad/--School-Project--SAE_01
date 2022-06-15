@@ -97,6 +97,7 @@
                         Margin="10,350,15,0"
                         VerticalAlignment="Top"
                         Background="#FF238636"
+                        Click="Espece_Click"
                         Content="Gerer Espèces"
                         FontFamily="Segoe UI Semibold"
                         FontSize="16"
@@ -184,9 +185,10 @@
                 Margin="0,0,86,0"
                 VerticalAlignment="Center"
                 Fill="White"
+                MouseLeftButtonDown="statusBar_MouseLeftButtonDown"
                 PreviewMouseLeftButtonDown="statusBar_PreviewMouseLeftButtonDown"
                 RadiusX="14"
-                RadiusY="14" MouseLeftButtonDown="statusBar_MouseLeftButtonDown" />
+                RadiusY="14" />
             <Label
                 Width="118"
                 Margin="10,0,0,0"

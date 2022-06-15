@@ -59,7 +59,7 @@ namespace Gestion_Animaux
 
         private void Espece_Click(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new System.Uri("/Frames/TypeAnimalFrame.xaml",
+            MainFrame.Navigate(new System.Uri("/Frames/Espece/EspeceFrame.xaml",
              UriKind.RelativeOrAbsolute));
         }
 
@@ -186,6 +186,7 @@ namespace Gestion_Animaux
                 }
             }
     }
+
     }
 
 }

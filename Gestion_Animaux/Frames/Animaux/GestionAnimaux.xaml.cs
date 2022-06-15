@@ -40,10 +40,6 @@ namespace Gestion_Animaux.Frames.Animaux
 
         }
 
-        private void DGAnimaux_CurrentCellChanged(object sender, EventArgs e)
-        {
-            this.select.Content = DGAnimaux.SelectedIndex.ToString();
-        }
 
         private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -60,11 +56,11 @@ namespace Gestion_Animaux.Frames.Animaux
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             if (this.modifs.IsChecked == true)
-                DGAnimaux.IsReadOnly = true;
+                DGAnimaux.IsReadOnly = false;
             else
             {
                 this.Supprimer.IsEnabled = false;
-                DGAnimaux.IsReadOnly = false;
+                DGAnimaux.IsReadOnly = true;
             }
         }
 

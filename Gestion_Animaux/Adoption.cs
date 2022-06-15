@@ -171,5 +171,9 @@ namespace Gestion_Animaux
         {
             throw new NotImplementedException();
         }
+        public static int CompareById(Adoption value1, Adoption value2)
+        {
+            return value1.IdAdoptant.CompareTo(value2.IdAdoptant);
+        }
     }
 }
