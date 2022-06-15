@@ -13,7 +13,10 @@
     <Grid>
         <DataGrid
             x:Name="DGAnimaux"
+            Height="420"
             Margin="0,20,249,0"
+            Padding="15"
+            VerticalAlignment="Top"
             Background="Transparent"
             BorderThickness="2"
             CanUserAddRows="False"
@@ -21,15 +24,14 @@
             ItemsSource="{Binding ListeAnimaux}"
             RowBackground="Transparent"
             SelectionChanged="DGAnimaux_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" Height="420" VerticalAlignment="Top" Padding="15">
+            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" CellEditEnding="DGAnimaux_CellEditEnding">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGrid}">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type DataGrid}">
-                                <Border Background="Red" CornerRadius="5">
-                                </Border>
+                                <Border Background="Red" CornerRadius="5" />
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
@@ -56,7 +58,7 @@
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Click="Valider_Click" />
         <Button
             x:Name="Annuler"
             Width="231"
@@ -99,9 +101,32 @@
             Style="{DynamicResource ButtonStyle1}" />
         <Label
             x:Name="select"
-            Margin="633,104,0,0"
-            HorizontalAlignment="Left"
+            Margin="0,59,106,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Content="Label" />
+
+        <ToggleButton
+            x:Name="modifs"
+            Width="70"
+            Height="35"
+            Margin="0,20,10,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="ToggleButton_Click"
+            Style="{StaticResource SwitchTypeToggleButton}" />
+        <Label
+            Width="164"
+            Height="34"
+            Margin="556,20,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="Modification"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" />
     </Grid>
 </Page>

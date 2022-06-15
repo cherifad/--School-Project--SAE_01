@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace Gestion_Animaux.Frames.Animaux
     public partial class GestionAnimaux : Page
     {
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
+        List<Animal> modifsListe;
 
         public GestionAnimaux()
         {
@@ -31,6 +33,8 @@ namespace Gestion_Animaux.Frames.Animaux
             {
                 ListeAnimaux.Add(item);
             }
+
+            modifsListe = new List<Animal>();
 
             this.DataContext = this;
 
@@ -51,6 +55,39 @@ namespace Gestion_Animaux.Frames.Animaux
                 this.Supprimer.IsEnabled = false;
             else
                 this.Supprimer.IsEnabled = true;
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.modifs.IsChecked == true)
+                DGAnimaux.IsReadOnly = true;
+            else
+            {
+                this.Supprimer.IsEnabled = false;
+                DGAnimaux.IsReadOnly = false;
+            }
+        }
+
+        private void DGAnimaux_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            modifsListe.Clear();
+
+            foreach (var item in DGAnimaux.Items)
+            {
+                modifsListe.Add((Animal)item);
+            }
+        }
+
+        private void Valider_Click(object sender, RoutedEventArgs e)
+        {
+            List<Animal> diff = new List<Animal>();
+
+            modifsListe.Sort(Animal.CompareById);
+
+
+
+            //this.select.Content = modifsListe[0].IdAnimal.ToString();
+
         }
     }
 }
