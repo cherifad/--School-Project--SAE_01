@@ -124,7 +124,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Animal SET IDTYPE = {this.TypeAnimal}, NOMANIMAL = {this.NomAnimal}, TAILLEANIMAL = {this.TailleAnimal}, POIDSANIMAL = {this.PoidsAnimal}  WHERE idAnimal = {id}");
+                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Animal SET IDTYPE = {this.TypeAnimal}, NOMANIMAL  = {this.NomAnimal}, TAILLEANIMAL = {this.TailleAnimal}, POIDSANIMAL = {this.PoidsAnimal}  WHERE idAnimal = {id}");
                     if (! writer)
                     {
                         string message = "Impossible d'ajouter des données";
