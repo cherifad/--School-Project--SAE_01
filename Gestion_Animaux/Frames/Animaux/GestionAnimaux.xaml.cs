@@ -22,6 +22,20 @@ namespace Gestion_Animaux.Frames.Animaux
     {
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
         List<Animal> modifsListe;
+        List<int> indexMofifs;
+        bool canSet = true;
+        private List<Animal> startupList;
+
+        public List<Animal> StartupList
+        {
+            get { return startupList; }
+            set 
+            { 
+                if (canSet)
+                    startupList = value; 
+            }
+        }
+
 
         public GestionAnimaux()
         {
@@ -29,12 +43,20 @@ namespace Gestion_Animaux.Frames.Animaux
 
             ListeAnimaux = new ObservableCollection<Animal>();
 
+            StartupList = new List<Animal>();
+
+            StartupList = ApplicationData.listeAnimaux;
+
             foreach (var item in ApplicationData.listeAnimaux)
             {
                 ListeAnimaux.Add(item);
             }
 
+            canSet = false;
+
             modifsListe = new List<Animal>();
+
+            indexMofifs = new List<int>();
 
             this.DataContext = this;
 
@@ -64,36 +86,35 @@ namespace Gestion_Animaux.Frames.Animaux
             }
         }
 
-        private void DGAnimaux_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            modifsListe.Clear();
+            UpdateModifList(indexMofifs);
 
-            foreach (var item in DGAnimaux.Items)
+            foreach (var item in modifsListe)
             {
-                modifsListe.Add((Animal)item);
+                item.Update();
             }
         }
 
-        private void Valider_Click(object sender, RoutedEventArgs e)
+        void UpdateModifList(List<int> index)
         {
-            List<Animal> diff = new List<Animal>();
+            Animal newAnimal, oldAnimal;
 
-            modifsListe.Sort(Animal.CompareById);
-            ApplicationData.listeAnimaux.Sort(Animal.CompareById);
-
-            List<int> index = new List<int>();
-
-
-            for (int i = 0; i < modifsListe.Count; i++)
+            foreach (var item in index)
             {
-                if (modifsListe[i] != ApplicationData.listeAnimaux[i])
-                    index.Add(i);
-            }
+                newAnimal = (Animal)DGAnimaux.Items[item];
+                oldAnimal = StartupList.Find(x => x.IdAnimal == newAnimal.IdAnimal);
 
+                if (oldAnimal != null /*&& oldAnimal != newAnimal*/)
+                {
+                    modifsListe.Add(newAnimal);
+                }
+            }                
+        }
 
-
-            //this.select.Content = modifsListe[0].IdAnimal.ToString();
-
+        private void DGAnimaux_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            indexMofifs.Add(e.Row.GetIndex());
         }
     }
 }

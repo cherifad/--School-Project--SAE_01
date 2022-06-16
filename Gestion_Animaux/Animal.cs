@@ -118,7 +118,33 @@ namespace Gestion_Animaux
 
         public void Update()
         {
-            throw new NotImplementedException();
+            int id = this.IdAnimal;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Animal SET IDTYPE = {this.TypeAnimal}, NOMANIMAL = {this.NomAnimal}, TAILLEANIMAL = {this.TailleAnimal}, POIDSANIMAL = {this.PoidsAnimal}  WHERE idAnimal = {id}");
+                    if (! writer)
+                    {
+                        string message = "Impossible d'ajouter des données";
+                        string title = "Erreur d'ajout";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    else
+                    {
+                        string message = "Données modifiée !";
+                        string title = "Erreur d'ajout";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Animal");
+            }
+
         }
 
         public void Delete()

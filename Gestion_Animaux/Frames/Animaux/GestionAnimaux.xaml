@@ -20,30 +20,35 @@
             Background="Transparent"
             BorderThickness="2"
             CanUserAddRows="False"
-            CellEditEnding="DGAnimaux_CellEditEnding"
             ItemsSource="{Binding ListeAnimaux}"
             RowBackground="Transparent"
             SelectionChanged="DGAnimaux_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
+            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" RowEditEnding="DGAnimaux_RowEditEnding" AutoGenerateColumns="False">
 
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGrid}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type DataGrid}">
-                                <Border Background="Red" CornerRadius="5" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn
-                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
-                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    Header="IsSelected" />
+                
+                <DataGridTextColumn
+                    Width="40"
+                    Binding="{Binding IdAnimal}"
+                    Header="N°"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding TypeAnimal}"
+                    Header="Espèce" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding NomAnimal}"
+                    Header="Nom" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TailleAnimal, StringFormat={}{0:n2}}"
+                    Header="Taille (cm)" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding PoidsAnimal, StringFormat={}{0:n2}}"
+                    Header="Poids (kg)" />
             </DataGrid.Columns>
         </DataGrid>
         <Button
