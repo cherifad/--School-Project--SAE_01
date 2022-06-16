@@ -23,36 +23,19 @@ namespace Gestion_Animaux.Frames.Animaux
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
         List<Animal> modifsListe;
         List<int> indexMofifs;
-        bool canSet = true;
-        private List<Animal> startupList;
-
-        public List<Animal> StartupList
-        {
-            get { return startupList; }
-            set 
-            { 
-                if (canSet)
-                    startupList = value; 
-            }
-        }
-
 
         public GestionAnimaux()
         {
             InitializeComponent();
 
+            Toggle();
+
             ListeAnimaux = new ObservableCollection<Animal>();
-
-            StartupList = new List<Animal>();
-
-            StartupList = ApplicationData.listeAnimaux;
 
             foreach (var item in ApplicationData.listeAnimaux)
             {
                 ListeAnimaux.Add(item);
             }
-
-            canSet = false;
 
             modifsListe = new List<Animal>();
 
@@ -62,14 +45,11 @@ namespace Gestion_Animaux.Frames.Animaux
 
         }
 
-
-        private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
-
         private void DGAnimaux_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DGAnimaux.SelectedIndex == -1)
+            ActiveDataChange(DGAnimaux.SelectedIndex);
+
+            if ((DGAnimaux.SelectedIndex == -1) || (modifs.IsChecked == false))
                 this.Supprimer.IsEnabled = false;
             else
                 this.Supprimer.IsEnabled = true;
@@ -77,23 +57,27 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.modifs.IsChecked == true)
-                DGAnimaux.IsReadOnly = false;
-            else
-            {
-                this.Supprimer.IsEnabled = false;
-                DGAnimaux.IsReadOnly = true;
-            }
+            Toggle();
         }
 
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            UpdateModifList(indexMofifs);
+            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-            foreach (var item in modifsListe)
+            if(result == MessageBoxResult.Yes)
             {
-                item.Update();
+                UpdateModifList(indexMofifs);
+
+                load.IsActive = true;
+                foreach (var item in modifsListe)
+                {
+                    item.Update();
+                }
+                load.IsActive = false;
             }
+            
         }
 
         void UpdateModifList(List<int> index)
@@ -103,7 +87,7 @@ namespace Gestion_Animaux.Frames.Animaux
             foreach (var item in index)
             {
                 newAnimal = (Animal)DGAnimaux.Items[item];
-                oldAnimal = StartupList.Find(x => x.IdAnimal == newAnimal.IdAnimal);
+                oldAnimal = ApplicationData.listeAnimaux.Find(x => x.IdAnimal == newAnimal.IdAnimal);
 
                 if (oldAnimal != null /*&& oldAnimal != newAnimal*/)
                 {
@@ -115,6 +99,37 @@ namespace Gestion_Animaux.Frames.Animaux
         private void DGAnimaux_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             indexMofifs.Add(e.Row.GetIndex());
+        }
+
+        void Toggle()
+        {
+            if (this.modifs.IsChecked == true)
+            {
+                DGAnimaux.IsReadOnly = false;
+                modifsTexte.Content = "Modification activée";
+                modifsTexte.Foreground = Brushes.Green;
+                Valider.IsEnabled = true;
+                Annuler.IsEnabled = true;
+            }
+            else
+            {
+                modifsTexte.Content = "Modification désactivée";
+                modifsTexte.Foreground = Brushes.Red;
+                this.Supprimer.IsEnabled = false;
+                DGAnimaux.IsReadOnly = true;
+                Valider.IsEnabled = false;
+                Annuler.IsEnabled = false;
+            }
+        }
+
+        void ActiveDataChange(int index)
+        {
+            Animal current = (Animal)DGAnimaux.Items[index];
+            activeData.Text = $"N° unique : {current.IdAnimal}" +
+                $"\nN° Type : {current.TypeAnimal}" +
+                $"\nNom : {current.NomAnimal}" +
+                $"\nTaille : {current.TailleAnimal} cm" +
+                $"\nPoids : {current.PoidsAnimal} kg";
         }
     }
 }

@@ -108,7 +108,20 @@ namespace Gestion_Animaux
 
         public void Create()
         {
-            throw new NotImplementedException();
+            DataAccess access = new DataAccess();
+            //SqlDataAdapter writer;
+
+            try
+            {
+                if (access.openConnection())
+                {
+                    access.setData($"insert into [iut-acy\\reydetb].Animal (IDTYPE, NOMANIMAL, TAILLEANIMAL, POIDSANIMAL) values ('{this.TypeAnimal}', '{this.NomAnimal}', '{this.TailleAnimal}', '{this.PoidsAnimal}')");
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Animal");
+            }
         }
 
         public void Read()
@@ -124,17 +137,36 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Animal SET IDTYPE = {this.TypeAnimal}, NOMANIMAL  = {this.NomAnimal}, TAILLEANIMAL = {this.TailleAnimal}, POIDSANIMAL = {this.PoidsAnimal}  WHERE idAnimal = {id}");
+                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Animal SET IDTYPE = '{this.TypeAnimal}', NOMANIMAL  = '{this.NomAnimal}', TAILLEANIMAL = '{this.TailleAnimal}', POIDSANIMAL = '{this.PoidsAnimal}'  WHERE idAnimal = {id}");
                     if (! writer)
                     {
-                        string message = "Impossible d'ajouter des données";
+                        string message = $"Impossible d'ajouter des données (id : {id}";
                         string title = "Erreur d'ajout";
                         var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
                     }
-                    else
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Animal Update");
+            }
+
+        }
+
+        public void Delete()
+        {
+            int id = this.IdAnimal;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"DELETE FROM [iut-acy\\reydetb].Animal WHERE idAnimal = {id}");
+                    if (!writer)
                     {
-                        string message = "Données modifiée !";
-                        string title = "Erreur d'ajout";
+                        string message = $"Impossible de supprimé l'animal (ID : {id} ";
+                        string title = "Erreur de suppression";
                         var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
                     }
                     access.closeConnection();
@@ -144,12 +176,6 @@ namespace Gestion_Animaux
             {
                 System.Windows.MessageBox.Show(ex.Message, "Important Message Animal");
             }
-
-        }
-
-        public void Delete()
-        {
-            throw new NotImplementedException();
         }
 
         public List<Animal> FindBySelection(string criteres)
