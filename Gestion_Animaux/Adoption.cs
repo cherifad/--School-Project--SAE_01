@@ -135,14 +135,22 @@ namespace Gestion_Animaux
 
         public void Update()
         {
+            int idAn = this.IdAnimal;
+            int idAd = this.IdAdoptant;
             DataAccess access = new DataAccess();
             try
             {
                 if (access.openConnection())
                 {
-                    access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}'");
+                    bool writer = access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}' where idAdoptant = {idAd} and idAnimal = {idAn}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible d'ajouter des données (id : {idAd}, {idAn}";
+                        string title = "Erreur d'ajout";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
                 }
-                access.closeConnection();
             }
             catch (Exception ex)
             {
@@ -152,14 +160,22 @@ namespace Gestion_Animaux
 
         public void Delete()
         {
+            int idAn = this.IdAnimal;
+            int idAd = this.IdAdoptant;
             DataAccess access = new DataAccess();
             try
             {
                 if (access.openConnection())
                 {
-                    access.setData($"delete from [iut-acy\\reydetb].Adoption where idadoptant = '{this.IdAdoptant}'");
+                    bool writer = access.setData($"delete from [iut-acy\\reydetb].Adoption where idadoptant = '{idAd}' and idAnimal = {idAn}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible de supprimer l'adoption (id : {idAd}, {idAn}";
+                        string title = "Erreur de suppression";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
                 }
-                access.closeConnection();
             }
             catch (Exception ex)
             {

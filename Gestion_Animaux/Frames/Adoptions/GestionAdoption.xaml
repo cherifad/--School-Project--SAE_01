@@ -4,208 +4,143 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Gestion_Animaux.Frames.Adoptions"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="EspeceFrame"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    Title="AdoptionFrame"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Background="white">
 
     <Grid>
 
         <Button
             x:Name="Ajouter"
             Width="231"
-            Height="45"
-            Margin="0,225,10,0"
+            Margin="0,0,10,180"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FF00FBD9"
-            Click="Ajouter_Click"
-            Content="Ajouter une espèce"
+            Content="Ajouter un animal"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="Black"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Click="Ajouter_Click" Height="45" VerticalAlignment="Bottom" />
+
         <Button
-            x:Name="Valider_Modification"
+            x:Name="Valider"
             Width="231"
-            Height="45"
-            Margin="0,284,10,0"
+            Margin="0,0,10,120"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FF238636"
-            Content="Valider les modifications"
+            Click="Valider_Click"
+            Content="Valider les mofifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="46" VerticalAlignment="Bottom" />
+
         <Button
-            x:Name="Annuler_Modification"
+            x:Name="Annuler"
             Width="231"
-            Height="45"
-            Margin="0,339,10,0"
+            Margin="0,0,10,66"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FFE60202"
-            Click="Annuler_Modification_Click"
-            Content="Annuler les modifications"
+            Content="Annuler les mofifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Bottom" />
+
         <Button
             x:Name="Supprimer"
-            Width="231"
-            Height="45"
-            Margin="0,395,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            Margin="0,0,10,10"
             Background="#FFE60202"
             Content="Supprimer"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
             IsEnabled="False"
-            Style="{DynamicResource ButtonStyle1}" />
-        <Label
-            x:Name="Label_Adoptant"
-            Grid.Row="1"
-            Width="150"
-            Margin="30,50"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Adoptant :"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16" />
-        <ComboBox
-            x:Name="Liste_Adoptants"
-            Width="100"
-            Height="20"
-            Margin="30,90"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <Label
-            x:Name="Label_Animaux"
-            Grid.Row="1"
-            Width="150"
-            Margin="200,50"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Animal :"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16" />
-        <ComboBox
-            x:Name="Liste_Animaux"
-            Width="100"
-            Height="20"
-            Margin="200,90"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <Label
-            x:Name="Label_Date"
-            Width="150"
-            Margin="370,50"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Date :"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16" />
-        <DatePicker
-            x:Name="SelectDate"
-            Width="100"
-            Height="20"
-            Margin="370,90"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
-        <Label
-            x:Name="Label_Commentaire"
-            Width="150"
-            Margin="150,140"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Commentaire :"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16" />
-        <TextBox
-            x:Name="Entrer_Commentaire"
-            Width="200"
-            Height="60"
-            Margin="150,170"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top" />
+            Style="{DynamicResource ButtonStyle1}" Click="Supprimer_Click" Height="45" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="231" />
 
-        <Button
-            x:Name="Button_Ajouter_Valider"
-            Width="100"
-            Height="30"
-            Margin="200,300"
+        <mah:ProgressRing x:Name="load" Foreground="{DynamicResource AccentColorBrush}" IsActive="False" />
+
+        <TextBlock x:Name="activeData" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black"
+            HorizontalAlignment="Right" Margin="0,69,10,267" TextWrapping="Wrap" Text="Cliquez sur une adoption pour voir ses informations" Width="254"/>
+
+        <mah:ToggleSwitch FontSize="16" FontWeight="Bold" FontFamily="Segoe UI Semibold" x:Name="modifs" Height="32" Margin="0,20,10,0" VerticalAlignment="Top" Width="254" Toggled="ToggleButton_Click" HorizontalAlignment="Right"/>
+
+        <Grid x:Name="form" Visibility="Hidden">
+            <Label FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Semibold"  x:Name="addTitle" Content="Ajouter une adoption" Margin="27,24,311,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <ComboBox ItemsSource="{Binding Path=ListeAdoptant}" SelectedItem="{Binding Path=Adoptant}" DisplayMemberPath="NomAdoptant"  x:Name="addAdoptantIn" Margin="104,88,466,0" Height="30" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addAdoptant" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,91,696,0" TextWrapping="Wrap" Text="Adoptant" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addAnimal" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,148,0,0" TextWrapping="Wrap" Text="Animal" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <ComboBox ItemsSource="{Binding Path=ListeAnimal}" SelectedItem="{Binding Path=Animal}" DisplayMemberPath="NomAnimal"  x:Name="addAnimalIn" Margin="104,148,466,0" Height="30" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addDate" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,205,0,0" TextWrapping="Wrap" Text="Date" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <DatePicker
+            x:Name="addDateIn"
+            Width="200"
+            Height="20"
+            Margin="104,205,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Top" FontSize="16"/>
+
+            <TextBlock x:Name="addCommentaire" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,262,0,0" TextWrapping="Wrap" Text="Commentaire" HorizontalAlignment="Left" Width="100" Height="21" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="addCommentaireIn" VerticalContentAlignment="Center" Height="30" Margin="130,262,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" />
+
+            <Button
+            x:Name="addBtn"
+            Margin="103,339,466,0"
             Background="#FF00FBD9"
-            Click="Button_Ajouter_Valider_Click"
-            Content="Valider"
+            Content="Ajouter une adoption"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
-            Style="{DynamicResource ButtonStyle1}" />
-        <DataGrid
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Click="addBtn_Click" />
+        </Grid>
+
+
+        <DataGrid Visibility="Visible"
             x:Name="DGAdoption"
             Height="420"
-            Margin="0,20,249,0"
-            Padding="15"
-            VerticalAlignment="Top"
+            Margin="0,20,283,32"
+            Padding="5"
             Background="Transparent"
-            BorderThickness="2"
+            BorderThickness="0"
             CanUserAddRows="False"
             CellEditEnding="DGAdoption_CellEditEnding"
-            ColumnWidth="*"
             ItemsSource="{Binding ListeAdoption}"
             RowBackground="Transparent"
             SelectionChanged="DGAdoption_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
-            HorizontalScrollBarVisibility="Auto">
-
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGrid}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type DataGrid}">
-                                <Border Background="Red" CornerRadius="5" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.Resources>
+            Style="{DynamicResource DGstyle}"
+            HorizontalScrollBarVisibility="Auto" AutoGenerateColumns="False" RowEditEnding="DGAdoption_RowEditEnding">
 
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn
-                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
-                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    Header="IsSelected" />
+                <DataGridTextColumn Width="80" Header="N° Adoptant" Binding="{Binding IdAdoptant}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="70" Header="N° Animal" Binding="{Binding IdAnimal}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Date Adoption" Binding="{Binding DateAdoption, StringFormat=d}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Commentaire" Binding="{Binding CommentaireAdoption, StringFormat=UTF-8}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
-
-        <ToggleButton
-            x:Name="modifs"
-            Width="70"
-            Height="35"
-            Margin="0,20,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Click="ToggleButton_Click"
-            Style="{StaticResource SwitchTypeToggleButton}" />
-        <Label
-            Width="164"
-            Height="34"
-            Margin="556,20,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Content="Modification"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16"
-            FontWeight="Bold"
-            Foreground="Black" />
     </Grid>
 </Page>

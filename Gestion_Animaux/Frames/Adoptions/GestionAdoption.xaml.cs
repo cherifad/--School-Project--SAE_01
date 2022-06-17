@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,15 +17,23 @@ using System.Windows.Shapes;
 namespace Gestion_Animaux.Frames.Adoptions
 {
     /// <summary>
-    /// Logique d'interaction pour EspeceFrame.xaml
+    /// Logique d'interaction pour AdoptionFrame.xaml
     /// </summary>
     public partial class GestionAdoption : Page
     {
         public ObservableCollection<Adoption> ListeAdoption { get; set; }
         List<Adoption> modifsListe;
+        List<int> indexMofifs;
+        public ObservableCollection<Adoptant> ListeAdoptant { get; set; }
+        public ObservableCollection<Animal> ListeAnimal { get; set; }
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
+
         public GestionAdoption()
         {
             InitializeComponent();
+
+            Toggle();
+
             ListeAdoption = new ObservableCollection<Adoption>();
 
             foreach (var item in ApplicationData.listeAdoptions)
@@ -34,20 +43,17 @@ namespace Gestion_Animaux.Frames.Adoptions
 
             modifsListe = new List<Adoption>();
 
+            indexMofifs = new List<int>();
+
+            addAdoptantIn.ItemsSource = ApplicationData.listeAdoptants;
+
+            addAnimalIn.ItemsSource = ApplicationData.listeAnimaux;
+
             this.DataContext = this;
         }
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            DGAdoption.Visibility = Visibility.Hidden;
-            SelectDate.Visibility = Visibility.Visible;
-            Label_Adoptant.Visibility = Visibility.Visible;
-            Label_Animaux.Visibility = Visibility.Visible;
-            Label_Date.Visibility = Visibility.Visible;
-            Liste_Adoptants.Visibility = Visibility.Visible;
-            Liste_Animaux.Visibility = Visibility.Visible;
-            Button_Ajouter_Valider.Visibility = Visibility.Visible;
-            Entrer_Commentaire.Visibility = Visibility.Visible;
-            Label_Commentaire.Visibility = Visibility.Visible;
+            Switch();
         }
         public void Update()
         {
@@ -62,53 +68,14 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         private void Button_Ajouter_Valider_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(SelectDate.SelectedDate.Value.ToShortDateString()))
-            {
-                SelectDate.BorderBrush = Brushes.Red;
-            }
-            else if(Liste_Adoptants.SelectedItem == null)
-            {
-                Liste_Adoptants.BorderBrush = Brushes.Red;
-            }
-            else if (Liste_Animaux.SelectedItem == null)
-            {
-                Liste_Animaux.BorderBrush = Brushes.Red;
-            }
-            else
-            {
-                Adoption animal = new Adoption(((Adoptant)(Liste_Adoptants.SelectedItem)).IdAdoptant, ((Animal)(Liste_Animaux.SelectedItem)).IdAnimal, SelectDate.SelectedDate.Value, Entrer_Commentaire.Text);
-                animal.Create();
-
-                DGAdoption.Visibility = Visibility.Hidden;
-                SelectDate.Visibility = Visibility.Hidden;
-                Label_Adoptant.Visibility = Visibility.Hidden;
-                Label_Animaux.Visibility = Visibility.Hidden;
-                Label_Date.Visibility = Visibility.Hidden;
-                Liste_Adoptants.Visibility = Visibility.Hidden;
-                Liste_Animaux.Visibility = Visibility.Hidden;
-                Entrer_Commentaire.Visibility = Visibility.Hidden;
-                Label_Commentaire.Visibility = Visibility.Hidden;
-                Button_Ajouter_Valider.Visibility = Visibility.Hidden;
-
-                SelectDate.SelectedDate = null;
-                SelectDate.BorderBrush = Brushes.Gray;
-                Liste_Adoptants.SelectedItem = -1;
-                Liste_Adoptants.BorderBrush = Brushes.Gray;
-                Liste_Animaux.SelectedItem = -1;
-                Liste_Animaux.SelectedItem = Brushes.Gray;
-                Entrer_Commentaire.Text = "";
-
-                this.Update();
-            }
         }
 
-        private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
 
         private void DGAdoption_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DGAdoption.SelectedIndex == -1)
+            ActiveDataChange(DGAdoption.SelectedIndex);
+
+            if (DGAdoption.SelectedIndex == -1 || (!modifs.IsOn))
                 this.Supprimer.IsEnabled = false;
             else
                 this.Supprimer.IsEnabled = true;
@@ -116,12 +83,26 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.modifs.IsChecked == true)
+            Toggle();
+        }
+        void Toggle()
+        {
+            if (this.modifs.IsOn)
+            {
                 DGAdoption.IsReadOnly = false;
+                modifs.OnContent = "Modification activée";
+                modifs.Foreground = Brushes.Green;
+                Valider.IsEnabled = true;
+                Annuler.IsEnabled = true;
+            }
             else
             {
+                modifs.OffContent = "Modification désactivée";
+                modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGAdoption.IsReadOnly = true;
+                Valider.IsEnabled = false;
+                Annuler.IsEnabled = false;
             }
         }
 
@@ -137,30 +118,149 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            List<Adoption> diff = new List<Adoption>();
+            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-            modifsListe.Sort(Adoption.CompareById);
-            ApplicationData.listeAdoptions.Sort(Adoption.CompareById);
-
-            List<int> index = new List<int>();
-
-
-            for (int i = 0; i < modifsListe.Count; i++)
+            if (result == MessageBoxResult.Yes)
             {
-                if (modifsListe[i] != ApplicationData.listeAdoptions[i])
-                    index.Add(i);
+                UpdateModifList(indexMofifs);
+
+                load.IsActive = true;
+                foreach (var item in modifsListe)
+                {
+                    item.Update();
+                }
+                load.IsActive = false;
+
             }
+        }
+        void UpdateModifList(List<int> index)
+        {
+            Adoption newAdoption, oldAdoption;
 
+            foreach (var item in index)
+            {
+                newAdoption = (Adoption)DGAdoption.Items[item];
+                oldAdoption = ApplicationData.listeAdoptions.Find(x => x.IdAnimal == newAdoption.IdAnimal);
 
-
-            //this.select.Content = modifsListe[0].IdAnimal.ToString();
-
+                if (oldAdoption != null /*&& oldAdoption != newAdoption*/)
+                {
+                    modifsListe.Add(newAdoption);
+                }
+            }
         }
 
         private void Annuler_Modification_Click(object sender, RoutedEventArgs e)
         {
             this.Update();
         }
+        void ActiveDataChange(int index)
+        {
+            if (index != -1)
+            {
+                Adoption current = (Adoption)DGAdoption.Items[index];
+                Adoptant adoptant = ApplicationData.listeAdoptants.Find(x => x.IdAdoptant == current.IdAdoptant);
+                Animal animal = ApplicationData.listeAnimaux.Find(x => x.IdAnimal == current.IdAnimal);
+                activeData.Text = $"Nom Adoptant : {adoptant.NomAdoptant}" +
+                    $"\nNom Animal : {animal.NomAnimal}" +
+                    $"\nDate : {current.DateAdoption}" +
+                    $"\nCommentaire : {current.CommentaireAdoption}";
+            }
+            else
+            {
+                activeData.Text = "Cliquez sur une adoption pour voir ses informations";
+            }
 
+        }
+
+        private void DGAdoption_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            indexMofifs.Add(e.Row.GetIndex());
+
+            e.Row.Background = Brushes.Orange;
+        }
+
+        private void Supprimer_Click(object sender, RoutedEventArgs e)
+        {
+            int index = DGAdoption.SelectedIndex;
+            if (index != -1)
+            {
+                Adoption current = (Adoption)DGAdoption.Items[index];
+                Adoptant adoptant = ApplicationData.listeAdoptants.Find(x => x.IdAdoptant == current.IdAdoptant);
+                Animal animal = ApplicationData.listeAnimaux.Find(x => x.IdAnimal == current.IdAnimal);
+                string infos = $"Nom Adoptant : {adoptant.NomAdoptant}" +
+                    $"\nNom Animal : {animal.NomAnimal}" +
+                    $"\nDate : {current.DateAdoption}" +
+                    $"\nCommentaire : {current.CommentaireAdoption}";
+
+                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    current.Delete();
+                    ListeAdoption.RemoveAt(index);
+                    DGAdoption.Items.Refresh();
+                    load.IsActive = false;
+                }
+            }
+            else
+            {
+                string message = $"Aucune adoption selectionée !";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        private void Switch()
+        {
+            if (form.Visibility == Visibility.Visible)
+            {
+                Ajouter.Content = "Ajouter une adoption";
+                DGAdoption.Visibility = Visibility.Visible;
+                form.Visibility = Visibility.Hidden;
+            }
+            else if (form.Visibility == Visibility.Hidden)
+            {
+                Ajouter.Content = "Retour";
+                DGAdoption.Visibility = Visibility.Hidden;
+                form.Visibility = Visibility.Visible;
+            }
+        }
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Adoption newAdoption = new Adoption();
+            newAdoption.IdAdoptant = ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant;
+            newAdoption.IdAnimal = ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal;
+            newAdoption.DateAdoption = DateTime.Parse(addDateIn.Text);
+            newAdoption.CommentaireAdoption = addCommentaireIn.Text;
+
+            string infos = $"\nAdoptant : {ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant}" +
+                    $"\nAnimal : {ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal}" +
+                    $"\nDate : {newAdoption.DateAdoption}" +
+                    $"\nCommentaire : {newAdoption.CommentaireAdoption}";
+
+            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                load.IsActive = true;
+                newAdoption.Create();
+                ListeAdoption.Add(newAdoption);
+                DGAdoption.Items.Refresh();
+                Switch();
+                load.IsActive = false;
+            }
+
+
+        }
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
     }
 }
