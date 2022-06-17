@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,7 +24,16 @@ namespace Gestion_Animaux.Frames.Animaux
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
         List<Animal> modifsListe;
         List<int> indexMofifs;
+        public ObservableCollection<TypeAnimal> ListeTypeAnimal { get; set; }
+        private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
 
+
+        private TypeAnimal typeAnimal;
+        public TypeAnimal TypeAnimal
+        {
+            get { return typeAnimal; }
+            set { typeAnimal = value; }
+        }
         public GestionAnimaux()
         {
             InitializeComponent();
@@ -41,6 +51,8 @@ namespace Gestion_Animaux.Frames.Animaux
 
             indexMofifs = new List<int>();
 
+            addEspeceIn.ItemsSource = ApplicationData.listeTypeAnimal;
+
             this.DataContext = this;
 
         }
@@ -49,7 +61,7 @@ namespace Gestion_Animaux.Frames.Animaux
         {
             ActiveDataChange(DGAnimaux.SelectedIndex);
 
-            if ((DGAnimaux.SelectedIndex == -1) || (modifs.IsChecked == false))
+            if ((DGAnimaux.SelectedIndex == -1) || (!modifs.IsOn))
                 this.Supprimer.IsEnabled = false;
             else
                 this.Supprimer.IsEnabled = true;
@@ -105,18 +117,18 @@ namespace Gestion_Animaux.Frames.Animaux
 
         void Toggle()
         {
-            if (this.modifs.IsChecked == true)
+            if (this.modifs.IsOn)
             {
                 DGAnimaux.IsReadOnly = false;
-                modifsTexte.Content = "Modification activée";
-                modifsTexte.Foreground = Brushes.Green;
+                modifs.OnContent = "Modification activée";
+                modifs.Foreground = Brushes.Green;
                 Valider.IsEnabled = true;
                 Annuler.IsEnabled = true;
             }
             else
             {
-                modifsTexte.Content = "Modification désactivée";
-                modifsTexte.Foreground = Brushes.Red;
+                modifs.OffContent = "Modification désactivée";
+                modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGAnimaux.IsReadOnly = true;
                 Valider.IsEnabled = false;
@@ -126,33 +138,124 @@ namespace Gestion_Animaux.Frames.Animaux
 
         void ActiveDataChange(int index)
         {
-            Animal current = (Animal)DGAnimaux.Items[index];
-            TypeAnimal espece = ApplicationData.listeTypeAnimal.Find(x => x.IdType == current.TypeAnimal);
-            activeData.Text = $"N° unique : {current.IdAnimal}" +
-                $"\nEspèce : {espece.LibelleType}" +
-                $"\nNom : {current.NomAnimal}" +
-                $"\nTaille : {current.TailleAnimal} cm" +
-                $"\nPoids : {current.PoidsAnimal} kg";
+            if(index != -1)
+            {
+                Animal current = (Animal)DGAnimaux.Items[index];
+                TypeAnimal espece = ApplicationData.listeTypeAnimal.Find(x => x.IdType == current.TypeAnimal);
+                activeData.Text = $"N° unique : {current.IdAnimal}" +
+                    $"\nEspèce : {espece.LibelleType}" +
+                    $"\nNom : {current.NomAnimal}" +
+                    $"\nTaille : {current.TailleAnimal} cm" +
+                    $"\nPoids : {current.PoidsAnimal} kg";
+            }
+            else
+            {
+                activeData.Text = "Cliquez sur un animal pour voir ses informations";
+            }
+            
         }
 
-        private void Page_LostFocus(object sender, RoutedEventArgs e)
+        private void Supprimer_Click(object sender, RoutedEventArgs e)
         {
-            if(modifsListe.Count > 0)
+            int index = DGAnimaux.SelectedIndex;
+            if (index != -1)
             {
-                string message = $"Vous êtes sur le point d'abandoné {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+                Animal current = (Animal)DGAnimaux.Items[index];
+                TypeAnimal espece = ApplicationData.listeTypeAnimal.Find(x => x.IdType == current.TypeAnimal);
+                string infos = $"N° unique : {current.IdAnimal}" +
+                    $"\nEspèce : {espece.LibelleType}" +
+                    $"\nNom : {current.NomAnimal}" +
+                    $"\nTaille : {current.TailleAnimal} cm" +
+                    $"\nPoids : {current.PoidsAnimal} kg";
+
+                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    current.Delete();
+                    ListeAnimaux.RemoveAt(index);
+                    DGAnimaux.Items.Refresh();
+                    load.IsActive = false;
+                }
+            } else
+            {
+                string message = $"Aucun animal selectioné !";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-
+            Switch();                
         }
 
-        private void Page_GotFocus(object sender, RoutedEventArgs e)
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.activeData.Text = $"{Page.IsFocusedProperty}";
+            Animal newAnimal = new Animal();
+            newAnimal.TypeAnimal = ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].IdType;
+            newAnimal.PoidsAnimal = double.Parse(addPoidsIn.Text);
+            newAnimal.TailleAnimal = int.Parse(addTailleIn.Text);
+            newAnimal.NomAnimal = addNomIn.Text;
+
+            string infos = $"\nEspèce : {ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].LibelleType}" +
+                    $"\nNom : {newAnimal.NomAnimal}" +
+                    $"\nTaille : {newAnimal.TailleAnimal} cm" +
+                    $"\nPoids : {newAnimal.PoidsAnimal} kg";
+
+            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                load.IsActive = true;
+                newAnimal.Create();
+                ListeAnimaux.Add(newAnimal);
+                DGAnimaux.Items.Refresh();
+                Switch();
+                load.IsActive = false;
+            }
+
+            
+        }
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        private void addNomIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsTextAllowed(e.Text);
+        }
+
+        private void addPoidsIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private void addTailleIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private void Switch()
+        {
+            if (form.Visibility == Visibility.Visible)
+            {
+                Ajouter.Content = "Ajouter un animal";
+                DGAnimaux.Visibility = Visibility.Visible;
+                form.Visibility = Visibility.Hidden;
+            }
+            else if (form.Visibility == Visibility.Hidden)
+            {
+                Ajouter.Content = "Retour";
+                DGAnimaux.Visibility = Visibility.Hidden;
+                form.Visibility = Visibility.Visible;
+            }
         }
     }
 }

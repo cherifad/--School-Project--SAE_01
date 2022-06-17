@@ -9,10 +9,11 @@
     Title="Gestion Animaux"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d" LostFocus="Page_LostFocus" Unloaded="Page_Unloaded" GotFocus="Page_GotFocus">
+    mc:Ignorable="d">
 
-    <Grid>
+    <Grid >
         <DataGrid
+            Visibility="Visible"
             x:Name="DGAnimaux"
             Margin="0,20,283,32"
             Padding="5"
@@ -56,88 +57,102 @@
         <Button
             x:Name="Valider"
             Width="231"
-            Height="46"
-            Margin="0,284,10,0"
+            Margin="0,0,10,120"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FF238636"
             Click="Valider_Click"
             Content="Valider les mofifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="46" VerticalAlignment="Bottom" />
         <Button
             x:Name="Annuler"
             Width="231"
-            Height="45"
-            Margin="0,339,10,0"
+            Margin="0,0,10,66"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FFE60202"
             Content="Annuler les mofifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Bottom" />
         <Button
             x:Name="Ajouter"
             Width="231"
-            Height="45"
-            Margin="0,225,10,0"
+            Margin="0,0,10,180"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
             Background="#FF00FBD9"
             Content="Ajouter un animal"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="Black"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Click="Ajouter_Click" Height="45" VerticalAlignment="Bottom" />
         <Button
             x:Name="Supprimer"
-            Width="231"
-            Height="45"
-            Margin="0,395,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            Margin="0,0,10,10"
             Background="#FFE60202"
             Content="Supprimer"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
             IsEnabled="False"
-            Style="{DynamicResource ButtonStyle1}" />
-        <ToggleButton
-            x:Name="modifs"
-            Width="70"
-            Height="35"
-            Margin="0,20,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Click="ToggleButton_Click"
-            Style="{StaticResource SwitchTypeToggleButton}" />
-        <Label
-            x:Name="modifsTexte"
-            Width="198"
-            Height="34"
-            Margin="0,20,80,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Content="Modification"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16"
-            FontWeight="Bold"
-            Foreground="Black" />
+            Style="{DynamicResource ButtonStyle1}" Click="Supprimer_Click" Height="45" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="231" />
 
         <mah:ProgressRing x:Name="load" Foreground="{DynamicResource AccentColorBrush}"
                   IsActive="False" />
+
         <TextBlock x:Name="activeData" FontFamily="Segoe UI Semibold"
             FontSize="16"
             FontWeight="Bold"
             Foreground="Black"
-            HorizontalAlignment="Right" Margin="0,69,10,230" TextWrapping="Wrap" Text="TextBlock" Width="254"/>
+            HorizontalAlignment="Right" Margin="0,69,10,267" TextWrapping="Wrap" Text="Cliquez sur un animal pour voir ses informations" Width="254"/>
 
+        <mah:ToggleSwitch FontSize="16"
+            FontWeight="Bold" FontFamily="Segoe UI Semibold" x:Name="modifs" Height="32" Margin="0,20,10,0" VerticalAlignment="Top" Width="254" Toggled="ToggleButton_Click" HorizontalAlignment="Right"/>
+
+        <Grid x:Name="form" Visibility="Hidden">
+            <ComboBox ItemsSource="{Binding Path=ListeTypeAnimal}" SelectedItem="{Binding Path=TypeAnimal}" DisplayMemberPath="LibelleType"  x:Name="addEspeceIn" Margin="104,88,466,0" Height="30" VerticalAlignment="Top"/>
+
+            <Label FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Semibold"  x:Name="addTitle" Content="Ajouter un animal" Margin="27,24,311,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBlock x:Name="addEspece" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,91,696,0" TextWrapping="Wrap" Text="Espèce" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addNom" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,148,0,0" TextWrapping="Wrap" Text="Nom" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="addNomIn" VerticalContentAlignment="Center" Height="30" Margin="104,144,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addNomIn_PreviewTextInput"/>
+
+            <TextBox x:Name="addPoidsIn" VerticalContentAlignment="Center" Height="30" Margin="104,208,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addPoidsIn_PreviewTextInput"/>
+
+            <TextBlock x:Name="addPoids" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,208,0,0" TextWrapping="Wrap" Text="Poids" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addTaille" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,267,0,0" TextWrapping="Wrap" Text="Taille" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="addTailleIn" VerticalContentAlignment="Center" Height="30" Margin="104,267,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addTailleIn_PreviewTextInput"/>
+
+            <Button
+            x:Name="addBtn"
+            Margin="103,339,466,0"
+            Background="#FF00FBD9"
+            Content="Ajouter un animal"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Click="addBtn_Click" />
+
+
+        </Grid>
     </Grid>
 </Page>

@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <None Remove="content\PNG-Animaux-Refuge.png" />
-    <None Remove="fermer.jpg" />
-    <None Remove="lapin-mignon-jouant-au-telephone-dessin-anime-vecteur-icone-illustration-animal-technologie-icone-co.jpg" />
     <None Remove="PNG-Animaux-Refuge.png" />
   </ItemGroup>
 
@@ -22,8 +20,6 @@
     <Resource Include="content\PNG-Animaux-Refuge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="fermer.jpg" />
-    <Resource Include="lapin-mignon-jouant-au-telephone-dessin-anime-vecteur-icone-illustration-animal-technologie-icone-co.jpg" />
     <Resource Include="PNG-Animaux-Refuge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
