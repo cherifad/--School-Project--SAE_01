@@ -307,17 +307,42 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type DataGrid}">
-        <Setter Property="RowHeaderWidth" Value="0" />
-        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+    <Style x:Key="DGRowStyle" TargetType="{x:Type DataGridRow}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="FontWeight" Value="ExtraBold" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Red" />
+                <Setter Property="FontWeight" Value="ExtraBold" />
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <Style x:Key="DGCellStyle" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Padding" Value="10"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type DataGrid}">
-                    <Border Background="Red" CornerRadius="5">
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+
+    <Style x:Key="DGstyle" TargetType="{x:Type DataGrid}">
+
+        <Setter Property="RowStyle" Value="{StaticResource DGRowStyle}"/>
+        <Setter Property="CellStyle" Value="{StaticResource DGCellStyle}"/>
+       
+
     </Style>
 
 

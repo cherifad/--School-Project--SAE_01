@@ -4,26 +4,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Gestion_Animaux.Frames.Animaux"
+    x:Name="AnimauxFrame"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    Title="GestionAnimaux"
+    Title="Gestion Animaux"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d">
+    mc:Ignorable="d" LostFocus="Page_LostFocus" Unloaded="Page_Unloaded" GotFocus="Page_GotFocus">
 
     <Grid>
         <DataGrid
             x:Name="DGAnimaux"
-            Height="420"
-            Margin="0,20,283,0"
-            Padding="15"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            BorderThickness="2"
+            Margin="0,20,283,32"
+            Padding="5"
+            BorderThickness="0"
             CanUserAddRows="False"
             ItemsSource="{Binding ListeAnimaux}"
-            RowBackground="Transparent"
             SelectionChanged="DGAnimaux_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}" RowEditEnding="DGAnimaux_RowEditEnding" AutoGenerateColumns="False">
+            Background="Transparent"
+            RowBackground="Transparent"
+            Style="{DynamicResource DGstyle}" RowEditEnding="DGAnimaux_RowEditEnding" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto">
+
 
 
             <DataGrid.Columns>
@@ -36,6 +36,7 @@
                 <DataGridTextColumn
                     Width="90"
                     Binding="{Binding TypeAnimal}"
+                    x:Name="espece"
                     Header="Espèce" />
                 <DataGridTextColumn
                     Width="90"
@@ -51,6 +52,7 @@
                     Header="Poids (kg)" />
             </DataGrid.Columns>
         </DataGrid>
+
         <Button
             x:Name="Valider"
             Width="231"

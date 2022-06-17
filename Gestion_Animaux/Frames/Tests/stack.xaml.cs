@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,18 +12,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Gestion_Animaux.Frames.Animaux
+namespace Gestion_Animaux.Frames.Tests
 {
     /// <summary>
-    /// Logique d'interaction pour GestionAnimaux.xaml
+    /// Logique d'interaction pour stack.xaml
     /// </summary>
-    public partial class GestionAnimaux : Page
+    public partial class stack : Page
+
     {
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
         List<Animal> modifsListe;
         List<int> indexMofifs;
 
-        public GestionAnimaux()
+        public stack()
         {
             InitializeComponent();
 
@@ -66,7 +66,7 @@ namespace Gestion_Animaux.Frames.Animaux
             string title = "Validation";
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 UpdateModifList(indexMofifs);
 
@@ -77,7 +77,7 @@ namespace Gestion_Animaux.Frames.Animaux
                 }
                 load.IsActive = false;
             }
-            
+
         }
 
         void UpdateModifList(List<int> index)
@@ -93,7 +93,7 @@ namespace Gestion_Animaux.Frames.Animaux
                 {
                     modifsListe.Add(newAnimal);
                 }
-            }                
+            }
         }
 
         private void DGAnimaux_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -133,26 +133,6 @@ namespace Gestion_Animaux.Frames.Animaux
                 $"\nNom : {current.NomAnimal}" +
                 $"\nTaille : {current.TailleAnimal} cm" +
                 $"\nPoids : {current.PoidsAnimal} kg";
-        }
-
-        private void Page_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if(modifsListe.Count > 0)
-            {
-                string message = $"Vous êtes sur le point d'abandoné {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
-                string title = "Validation";
-                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-            }
-        }
-
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Page_GotFocus(object sender, RoutedEventArgs e)
-        {
-            this.activeData.Text = $"{Page.IsFocusedProperty}";
         }
     }
 }

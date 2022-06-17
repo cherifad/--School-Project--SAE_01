@@ -161,7 +161,8 @@
             ItemsSource="{Binding ListeAdoption}"
             RowBackground="Transparent"
             SelectionChanged="DGAdoption_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
+            Style="{StaticResource MahApps.Styles.DataGrid.Azure}"
+            HorizontalScrollBarVisibility="Auto">
 
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGrid}">

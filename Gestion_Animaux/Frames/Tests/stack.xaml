@@ -1,0 +1,152 @@
+﻿<Page x:Class="Gestion_Animaux.Frames.Tests.stack"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gestion_Animaux.Frames.Tests"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="stack">
+
+    <DockPanel>
+
+        <StackPanel DockPanel.Dock="Right" Orientation="Vertical" Width="250">
+
+            <StackPanel Orientation="Horizontal">
+
+                <Label
+            x:Name="modifsTexte"
+            Width="198"
+            Height="34"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            Content="Modification"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" />
+
+                <ToggleButton
+            x:Name="modifs"
+            Width="70"
+            Height="35"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="ToggleButton_Click"
+            Style="{StaticResource SwitchTypeToggleButton}" />
+
+
+            </StackPanel>
+            <TextBlock x:Name="activeData" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black"
+            TextWrapping="Wrap" Text="TextBlock" Width="212"/>
+
+            <Button
+            x:Name="Valider"
+            Width="231"
+            Height="46"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF238636"
+            Click="Valider_Click"
+            Content="Valider les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+            <Button
+            x:Name="Annuler"
+            Width="231"
+            Height="45"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Annuler les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" />
+            <Button
+            x:Name="Ajouter"
+            Width="231"
+            Height="45"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FF00FBD9"
+            Content="Ajouter un animal"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" />
+            <Button
+            x:Name="Supprimer"
+            Width="231"
+            Height="45"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="#FFE60202"
+            Content="Supprimer"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            IsEnabled="False"
+            Style="{DynamicResource ButtonStyle1}" />
+
+
+            <mah:ProgressRing x:Name="load" Foreground="{DynamicResource AccentColorBrush}"
+                  IsActive="False" />
+
+
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Left">
+
+            <DataGrid
+            Width="Auto"
+            x:Name="DGAnimaux"
+            Margin="0,20,283,32"
+            Padding="5"
+            BorderThickness="0"
+            CanUserAddRows="False"
+            ItemsSource="{Binding ListeAnimaux}"
+            SelectionChanged="DGAnimaux_SelectionChanged"
+            Background="Transparent"
+            RowBackground="Transparent"
+            Style="{DynamicResource DGstyle}" RowEditEnding="DGAnimaux_RowEditEnding" AutoGenerateColumns="False">
+
+
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn
+                    Width="40"
+                    Binding="{Binding IdAnimal}"
+                    Header="N°"
+                    IsReadOnly="True"/>
+                    <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding TypeAnimal}"
+                    Header="Espèce" />
+                    <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding NomAnimal}"
+                    Header="Nom" />
+                    <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TailleAnimal, StringFormat={}{0:n2}}"
+                    Header="Taille (cm)" />
+                    <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding PoidsAnimal, StringFormat={}{0:n2}}"
+                    Header="Poids (kg)" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </StackPanel>
+
+    </DockPanel>
+</Page>

@@ -22,8 +22,7 @@ namespace Gestion_Animaux
     /// </summary>
     public partial class MainWindow : Window
     {        
-
-        private bool mRestoreIfMove = false;
+        bool mRestoreIfMove = false;    
         public MainWindow()
         {
             InitializeComponent();
@@ -187,6 +186,12 @@ namespace Gestion_Animaux
             }
     }
 
+        private void test_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("/Frames/Tests/stack.xaml",
+             UriKind.RelativeOrAbsolute));
+        }
     }
+    
 
 }
