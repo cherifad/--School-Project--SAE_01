@@ -13,7 +13,7 @@
 
     <Grid>
         <WrapPanel HorizontalAlignment="Center">
-            <StackPanel Margin="15,0,15,0">
+            <StackPanel Margin="15,15,15,0">
                 <Rectangle
             Width="212"
             Height="153"
@@ -52,7 +52,7 @@
 
             </StackPanel>
 
-            <StackPanel Margin="15,0,15,0">
+            <StackPanel Margin="15,15,15,0">
                 <Rectangle
             Width="212"
             Height="153"
@@ -91,7 +91,7 @@
 
             </StackPanel>
 
-            <StackPanel Margin="15,0,15,0">
+            <StackPanel Margin="15,15,15,0">
                 <Rectangle
             Width="212"
             Height="153"
@@ -130,7 +130,7 @@
 
             </StackPanel>
 
-            <StackPanel Margin="15,0,15,0">
+            <StackPanel Margin="15,15,15,0">
                 <Rectangle
             Width="212"
             Height="153"
