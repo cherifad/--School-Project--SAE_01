@@ -118,14 +118,14 @@ namespace Gestion_Animaux.Frames.Adoptants
             if (this.modifs.IsOn)
             {
                 DGAdoptant.IsReadOnly = false;
-                modifs.OnContent = "Modification activée";
+                modifs.OnContent = "Modifications activées";
                 modifs.Foreground = Brushes.Green;
                 Valider.IsEnabled = true;
                 Annuler.IsEnabled = true;
             }
             else
             {
-                modifs.OffContent = "Modification désactivée";
+                modifs.OffContent = "Modifications désactivées";
                 modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGAdoptant.IsReadOnly = true;
@@ -164,7 +164,7 @@ namespace Gestion_Animaux.Frames.Adoptants
                     $"\nTéléphone : {current.TelAdoptant}" +
                     $"\nEmail : {current.MailAdoptant}";
 
-                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string message = $"Vous êtes sur le point de supprimer : \n{infos} .\nVoulez-vous continuer ?";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -179,7 +179,7 @@ namespace Gestion_Animaux.Frames.Adoptants
             }
             else
             {
-                string message = $"Aucun animal selectioné !";
+                string message = $"Aucun animal selectionné !";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -192,32 +192,53 @@ namespace Gestion_Animaux.Frames.Adoptants
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            Adoptant newAdoptant = new Adoptant();
-            newAdoptant.NomAdoptant = addNomIn.Text;
-            newAdoptant.PrenomAdoptant = addPrenomIn.Text;
-            newAdoptant.TelAdoptant = addTelIn.Text;
-            newAdoptant.MailAdoptant = addMailIn.Text;
+            addNomIn.BorderBrush = Brushes.Gray;
+            addPrenomIn.BorderBrush = Brushes.Gray;
+            addTelIn.BorderBrush = Brushes.Gray;
+            addMailIn.BorderBrush = Brushes.Gray;
 
-            string infos = $"\nNom : {newAdoptant.NomAdoptant}" +
-                    $"\nPrénom : {newAdoptant.PrenomAdoptant}" +
-                    $"\nTéléphone : {newAdoptant.TelAdoptant}" +
-                    $"\nEmail : {newAdoptant.MailAdoptant}";
-
-            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
-            string title = "Validation";
-            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.Yes)
+            if (String.IsNullOrEmpty(addNomIn.Text)||String.IsNullOrEmpty(addPrenomIn.Text)||String.IsNullOrEmpty(addTelIn.Text)||String.IsNullOrEmpty(addMailIn.Text))
             {
-                load.IsActive = true;
-                newAdoptant.Create();
-                ListeAdoptant.Add(newAdoptant);
-                DGAdoptant.Items.Refresh();
-                Switch();
-                load.IsActive = false;
+                if (String.IsNullOrEmpty(addNomIn.Text))
+                    addNomIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addPrenomIn.Text))
+                    addPrenomIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addTelIn.Text))
+                    addTelIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addMailIn.Text))
+                    addMailIn.BorderBrush = Brushes.Red;
             }
+            else
+            {
+                Adoptant newAdoptant = new Adoptant();
+                newAdoptant.NomAdoptant = addNomIn.Text;
+                newAdoptant.PrenomAdoptant = addPrenomIn.Text;
+                newAdoptant.TelAdoptant = addTelIn.Text;
+                newAdoptant.MailAdoptant = addMailIn.Text;
 
+                string infos = $"\nNom : {newAdoptant.NomAdoptant}" +
+                        $"\nPrénom : {newAdoptant.PrenomAdoptant}" +
+                        $"\nTéléphone : {newAdoptant.TelAdoptant}" +
+                        $"\nEmail : {newAdoptant.MailAdoptant}";
 
+                string message = $"Vous êtes sur le point d'ajouter : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    newAdoptant.Create();
+                    ListeAdoptant.Add(newAdoptant);
+                    DGAdoptant.Items.Refresh();
+                    Switch();
+                    load.IsActive = false;
+                }
+
+            }
         }
         private static bool IsTextAllowed(string text)
         {

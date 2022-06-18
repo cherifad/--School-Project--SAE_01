@@ -108,14 +108,14 @@ namespace Gestion_Animaux.Frames.Adoptions
             if (this.modifs.IsOn)
             {
                 DGAdoption.IsReadOnly = false;
-                modifs.OnContent = "Modification activée";
+                modifs.OnContent = "Modifications activées";
                 modifs.Foreground = Brushes.Green;
                 Valider.IsEnabled = true;
                 Annuler.IsEnabled = true;
             }
             else
             {
-                modifs.OffContent = "Modification désactivée";
+                modifs.OffContent = "Modifications désactivées";
                 modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGAdoption.IsReadOnly = true;
@@ -249,7 +249,7 @@ namespace Gestion_Animaux.Frames.Adoptions
                     $"\nDate : {current.DateAdoption}" +
                     $"\nCommentaire : {current.CommentaireAdoption}";
 
-                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string message = $"Vous êtes sur le point de supprimer : \n{infos} .\nVoulez-vous continuer ?";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -264,7 +264,7 @@ namespace Gestion_Animaux.Frames.Adoptions
             }
             else
             {
-                string message = $"Aucune adoption selectionée !";
+                string message = $"Aucune adoption selectionnée !";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -296,31 +296,48 @@ namespace Gestion_Animaux.Frames.Adoptions
         /// <param name="e"></param>
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            Adoption newAdoption = new Adoption();
-            newAdoption.IdAdoptant = ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant;
-            newAdoption.IdAnimal = ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal;
-            newAdoption.DateAdoption = DateTime.Parse(addDateIn.Text);
-            newAdoption.CommentaireAdoption = addCommentaireIn.Text;
+            addAdoptantIn.BorderBrush = Brushes.Gray;
+            addAnimalIn.BorderBrush = Brushes.Gray;
+            addDateIn.BorderBrush = Brushes.Gray;
 
-            string infos = $"\nAdoptant : {ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant}" +
-                    $"\nAnimal : {ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal}" +
-                    $"\nDate : {newAdoption.DateAdoption}" +
-                    $"\nCommentaire : {newAdoption.CommentaireAdoption}";
-
-            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
-            string title = "Validation";
-            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.Yes)
+            if (addAdoptantIn.SelectedIndex==-1||addAnimalIn.SelectedIndex==-1||String.IsNullOrEmpty(addDateIn.Text))
             {
-                load.IsActive = true;
-                newAdoption.Create();
-                ListeAdoption.Add(newAdoption);
-                DGAdoption.Items.Refresh();
-                Switch();
-                load.IsActive = false;
-            }
+                if (addAdoptantIn.SelectedIndex == -1)
+                    addAdoptantIn.BorderBrush = Brushes.Red;
 
+                if (addAnimalIn.SelectedIndex == -1)
+                    addAnimalIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addDateIn.Text))
+                    addDateIn.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                Adoption newAdoption = new Adoption();
+                newAdoption.IdAdoptant = ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant;
+                newAdoption.IdAnimal = ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal;
+                newAdoption.DateAdoption = DateTime.Parse(addDateIn.Text);
+                newAdoption.CommentaireAdoption = addCommentaireIn.Text;
+
+                string infos = $"\nAdoptant : {ApplicationData.listeAdoptants[addAdoptantIn.SelectedIndex].IdAdoptant}" +
+                        $"\nAnimal : {ApplicationData.listeAnimaux[addAnimalIn.SelectedIndex].IdAnimal}" +
+                        $"\nDate : {newAdoption.DateAdoption}" +
+                        $"\nCommentaire : {newAdoption.CommentaireAdoption}";
+
+                string message = $"Vous êtes sur le point d'ajouter : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    newAdoption.Create();
+                    ListeAdoption.Add(newAdoption);
+                    DGAdoption.Items.Refresh();
+                    Switch();
+                    load.IsActive = false;
+                }
+            }
 
         }
 

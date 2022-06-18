@@ -61,23 +61,31 @@ namespace Gestion_Animaux.Frames.Espece
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            TypeAnimal newTypeAnimal = new TypeAnimal();
-            newTypeAnimal.LibelleType = addEspeceIn.Text;
-
-            string infos = $"\nNom : {newTypeAnimal.LibelleType}";
-
-            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
-            string title = "Validation";
-            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.Yes)
+            addEspeceIn.BorderBrush = Brushes.Gray;
+            if (String.IsNullOrEmpty(addEspeceIn.Text))
             {
-                load.IsActive = true;
-                newTypeAnimal.Create();
-                ListeTypeAnimal.Add(newTypeAnimal);
-                DGTypeAnimal.Items.Refresh();
-                Switch();
-                load.IsActive = false;
+                addEspeceIn.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                TypeAnimal newTypeAnimal = new TypeAnimal();
+                newTypeAnimal.LibelleType = addEspeceIn.Text;
+
+                string infos = $"\nNom : {newTypeAnimal.LibelleType}";
+
+                string message = $"Vous êtes sur le point d'ajouter : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    newTypeAnimal.Create();
+                    ListeTypeAnimal.Add(newTypeAnimal);
+                    DGTypeAnimal.Items.Refresh();
+                    Switch();
+                    load.IsActive = false;
+                }
             }
         }
         
@@ -163,14 +171,14 @@ namespace Gestion_Animaux.Frames.Espece
             if (this.modifs.IsOn)
             {
                 DGTypeAnimal.IsReadOnly = false;
-                modifs.OnContent = "Modification activée";
+                modifs.OnContent = "Modifications activées";
                 modifs.Foreground = Brushes.Green;
                 Valider.IsEnabled = true;
                 Annuler.IsEnabled = true;
             }
             else
             {
-                modifs.OffContent = "Modification désactivée";
+                modifs.OffContent = "Modifications désactivées";
                 modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGTypeAnimal.IsReadOnly = true;
@@ -203,7 +211,7 @@ namespace Gestion_Animaux.Frames.Espece
                 string infos = $"N° unique : {current.IdType}" +
                     $"\nNom : {current.LibelleType}";
 
-                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string message = $"Vous êtes sur le point de supprimer : \n{infos} .\nVoulez-vous continuer ?";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -218,7 +226,7 @@ namespace Gestion_Animaux.Frames.Espece
             }
             else
             {
-                string message = $"Aucun type d'animal selectioné !";
+                string message = $"Aucun type d'animal selectionné !";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }

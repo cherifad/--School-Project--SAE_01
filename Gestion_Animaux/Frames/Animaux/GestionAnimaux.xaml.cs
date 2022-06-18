@@ -78,7 +78,7 @@ namespace Gestion_Animaux.Frames.Animaux
             string title = "Validation";
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-            if(result == MessageBoxResult.Yes)
+            if (result == MessageBoxResult.Yes)
             {
                 UpdateModifList(indexMofifs);
 
@@ -89,7 +89,7 @@ namespace Gestion_Animaux.Frames.Animaux
                 }
                 load.IsActive = false;
             }
-            
+
         }
 
         void UpdateModifList(List<int> index)
@@ -105,7 +105,7 @@ namespace Gestion_Animaux.Frames.Animaux
                 {
                     modifsListe.Add(newAnimal);
                 }
-            }                
+            }
         }
 
         private void DGAnimaux_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
@@ -120,14 +120,14 @@ namespace Gestion_Animaux.Frames.Animaux
             if (this.modifs.IsOn)
             {
                 DGAnimaux.IsReadOnly = false;
-                modifs.OnContent = "Modification activée";
+                modifs.OnContent = "Modifications activées";
                 modifs.Foreground = Brushes.Green;
                 Valider.IsEnabled = true;
                 Annuler.IsEnabled = true;
             }
             else
             {
-                modifs.OffContent = "Modification désactivée";
+                modifs.OffContent = "Modifications désactivées";
                 modifs.Foreground = Brushes.Red;
                 this.Supprimer.IsEnabled = false;
                 DGAnimaux.IsReadOnly = true;
@@ -138,7 +138,7 @@ namespace Gestion_Animaux.Frames.Animaux
 
         void ActiveDataChange(int index)
         {
-            if(index != -1)
+            if (index != -1)
             {
                 Animal current = (Animal)DGAnimaux.Items[index];
                 TypeAnimal espece = ApplicationData.listeTypeAnimal.Find(x => x.IdType == current.TypeAnimal);
@@ -152,7 +152,7 @@ namespace Gestion_Animaux.Frames.Animaux
             {
                 activeData.Text = "Cliquez sur un animal pour voir ses informations";
             }
-            
+
         }
 
         private void Supprimer_Click(object sender, RoutedEventArgs e)
@@ -168,7 +168,7 @@ namespace Gestion_Animaux.Frames.Animaux
                     $"\nTaille : {current.TailleAnimal} cm" +
                     $"\nPoids : {current.PoidsAnimal} kg";
 
-                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string message = $"Vous êtes sur le point de supprimer : \n{infos} .\nVoulez-vous continuer ?";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -180,9 +180,10 @@ namespace Gestion_Animaux.Frames.Animaux
                     DGAnimaux.Items.Refresh();
                     load.IsActive = false;
                 }
-            } else
+            }
+            else
             {
-                string message = $"Aucun animal selectioné !";
+                string message = $"Aucun animal selectionné !";
                 string title = "Validation";
                 var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -190,37 +191,58 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            Switch();                
+            Switch();
         }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            Animal newAnimal = new Animal();
-            newAnimal.TypeAnimal = ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].IdType;
-            newAnimal.PoidsAnimal = double.Parse(addPoidsIn.Text);
-            newAnimal.TailleAnimal = int.Parse(addTailleIn.Text);
-            newAnimal.NomAnimal = addNomIn.Text;
+            addEspeceIn.BorderBrush = Brushes.Gray;
+            addPoidsIn.BorderBrush = Brushes.Gray;
+            addTailleIn.BorderBrush = Brushes.Gray;
+            addNomIn.BorderBrush = Brushes.Gray;
 
-            string infos = $"\nEspèce : {ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].LibelleType}" +
-                    $"\nNom : {newAnimal.NomAnimal}" +
-                    $"\nTaille : {newAnimal.TailleAnimal} cm" +
-                    $"\nPoids : {newAnimal.PoidsAnimal} kg";
-
-            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
-            string title = "Validation";
-            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
-
-            if (result == MessageBoxResult.Yes)
+            if (addEspeceIn.SelectedIndex==-1||String.IsNullOrEmpty(addPoidsIn.Text)||String.IsNullOrEmpty(addTailleIn.Text)||String.IsNullOrEmpty(addNomIn.Text))
             {
-                load.IsActive = true;
-                newAnimal.Create();
-                ListeAnimaux.Add(newAnimal);
-                DGAnimaux.Items.Refresh();
-                Switch();
-                load.IsActive = false;
-            }
+                if (addEspeceIn.SelectedIndex == -1)
+                    addEspeceIn.BorderBrush = Brushes.Red;
 
-            
+                if (String.IsNullOrEmpty(addPoidsIn.Text))
+                    addPoidsIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addTailleIn.Text))
+                    addTailleIn.BorderBrush = Brushes.Red;
+
+                if (String.IsNullOrEmpty(addNomIn.Text))
+                    addNomIn.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                Animal newAnimal = new Animal();
+                newAnimal.TypeAnimal = ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].IdType;
+                newAnimal.PoidsAnimal = double.Parse(addPoidsIn.Text);
+                newAnimal.TailleAnimal = int.Parse(addTailleIn.Text);
+                newAnimal.NomAnimal = addNomIn.Text;
+
+                string infos = $"\nEspèce : {ApplicationData.listeTypeAnimal[addEspeceIn.SelectedIndex].LibelleType}" +
+                        $"\nNom : {newAnimal.NomAnimal}" +
+                        $"\nTaille : {newAnimal.TailleAnimal} cm" +
+                        $"\nPoids : {newAnimal.PoidsAnimal} kg";
+
+                string message = $"Vous êtes sur le point d'ajouter : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    newAnimal.Create();
+                    ListeAnimaux.Add(newAnimal);
+                    DGAnimaux.Items.Refresh();
+                    Switch();
+                    load.IsActive = false;
+                }
+
+            }
         }
         private static bool IsTextAllowed(string text)
         {
