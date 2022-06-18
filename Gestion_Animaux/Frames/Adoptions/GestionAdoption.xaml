@@ -138,8 +138,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="80" Header="N° Adoptant" Binding="{Binding IdAdoptant}" IsReadOnly="True"/>
                 <DataGridTextColumn Width="70" Header="N° Animal" Binding="{Binding IdAnimal}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="Date Adoption" Binding="{Binding DateAdoption, StringFormat=d}" IsReadOnly="True"/>
-                <DataGridTextColumn Width="*" Header="Commentaire" Binding="{Binding CommentaireAdoption, StringFormat=UTF-8}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Date Adoption" Binding="{Binding DateAdoption, StringFormat=d}" />
+                <DataGridTextColumn Width="*" Header="Commentaire" Binding="{Binding CommentaireAdoption, StringFormat=UTF-8}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
