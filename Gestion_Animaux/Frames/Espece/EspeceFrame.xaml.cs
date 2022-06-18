@@ -156,10 +156,7 @@ namespace Gestion_Animaux.Frames.Espece
 
         }
 
-        private void Annuler_Modification_Click(object sender, RoutedEventArgs e)
-        {
-            this.Update();
-        }
+        
 
         void Toggle()
         {

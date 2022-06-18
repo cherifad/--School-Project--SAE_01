@@ -23,11 +23,13 @@ namespace Gestion_Animaux.Frames.Adoptions
     {
         public ObservableCollection<Adoption> ListeAdoption { get; set; }
         List<Adoption> modifsListe;
-        List<int> indexMofifs;
+        List<int> indexModifs;
         public ObservableCollection<Adoptant> ListeAdoptant { get; set; }
         public ObservableCollection<Animal> ListeAnimal { get; set; }
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
-
+        /// <summary>
+        /// Initialise la fenêtre et les différents objets et variables nécessaires à son fonctionnement.
+        /// </summary>
         public GestionAdoption()
         {
             InitializeComponent();
@@ -43,7 +45,7 @@ namespace Gestion_Animaux.Frames.Adoptions
 
             modifsListe = new List<Adoption>();
 
-            indexMofifs = new List<int>();
+            indexModifs = new List<int>();
 
             addAdoptantIn.ItemsSource = ApplicationData.listeAdoptants;
 
@@ -51,10 +53,18 @@ namespace Gestion_Animaux.Frames.Adoptions
 
             this.DataContext = this;
         }
+        /// <summary>
+        /// Evenement correspondant au bouton d'ajout d'une adoption.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
             Switch();
         }
+        /// <summary>
+        /// Permet de mettre à jour le tableau de données.
+        /// </summary>
         public void Update()
         {
             ApplicationData.UpdateAdoption();
@@ -66,11 +76,12 @@ namespace Gestion_Animaux.Frames.Adoptions
             this.DataContext = this;
         }
 
-        private void Button_Ajouter_Valider_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
-
+        /// <summary>
+        /// Evenement lors de la sélection d'une ligne du tableau. Cela permet d'activer et désactiver le bouton supprimer
+        /// en fonction de l'activation des modifications et de la sélection ou non d'un élement du tableau.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DGAdoption_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ActiveDataChange(DGAdoption.SelectedIndex);
@@ -80,11 +91,18 @@ namespace Gestion_Animaux.Frames.Adoptions
             else
                 this.Supprimer.IsEnabled = true;
         }
-
+        /// <summary>
+        /// Evenement du bouton des modifications permettant de les activer ou non.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             Toggle();
         }
+        /// <summary>
+        /// Permet d'activer et désactiver les modifications du tableau.
+        /// </summary>
         void Toggle()
         {
             if (this.modifs.IsOn)
@@ -105,7 +123,12 @@ namespace Gestion_Animaux.Frames.Adoptions
                 Annuler.IsEnabled = false;
             }
         }
-
+        /// <summary>
+        /// Evenement lors de la modification d'une cellule du tableau. Permet d'ajouter à la liste des modifications les modifications effectuées.
+        /// Cela permet de pouvoir annuler ou valider les modifications.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DGAdoption_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             modifsListe.Clear();
@@ -115,16 +138,21 @@ namespace Gestion_Animaux.Frames.Adoptions
                 modifsListe.Add((Adoption)item);
             }
         }
-
+        /// <summary>
+        /// Evenement lors du clique du bouton de validation des modifications. Permet de demander confirmation des modifications, et
+        /// mettre à jour la base de données.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string message = $"Vous êtes sur le point de valider {indexModifs.Count} modification(s).\nVoulez-vous continuer ?";
             string title = "Validation";
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
-                UpdateModifList(indexMofifs);
+                UpdateModifList(indexModifs);
 
                 load.IsActive = true;
                 foreach (var item in modifsListe)
@@ -135,6 +163,10 @@ namespace Gestion_Animaux.Frames.Adoptions
 
             }
         }
+        /// <summary>
+        /// Mets à jour la liste des modifications en ne gardant que les éléments réelement modifiés et modifiables.
+        /// </summary>
+        /// <param name="index">Liste contenant l'index des lignes modifiées.</param>
         void UpdateModifList(List<int> index)
         {
             Adoption newAdoption, oldAdoption;
@@ -150,11 +182,12 @@ namespace Gestion_Animaux.Frames.Adoptions
                 }
             }
         }
-
-        private void Annuler_Modification_Click(object sender, RoutedEventArgs e)
-        {
-            this.Update();
-        }
+        
+        /// <summary>
+        /// Permet de modifier le texte sous le bouton d'activation des modifications. Le texte correspond aux informations
+        /// concernant la ligne selectionnées.
+        /// </summary>
+        /// <param name="index">Index de la ligne selectionnée. Ne devant pas être nul ou négatif.</param>
         void ActiveDataChange(int index)
         {
             if (index != -1)
@@ -186,14 +219,23 @@ namespace Gestion_Animaux.Frames.Adoptions
             }
 
         }
-
+        /// <summary>
+        /// Evenement correspondant à la fin de l'édition d'une ligne du tableau. Ajoute à la liste des modifications une ligne si
+        /// elle a été modifiée.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DGAdoption_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            indexMofifs.Add(e.Row.GetIndex());
+            indexModifs.Add(e.Row.GetIndex());
 
             e.Row.Background = Brushes.Orange;
         }
-
+        /// <summary>
+        /// Evenement du bouton supprimer une ligne. Permet de supprimer la ligne selectionnée dans le tableau de la base de données.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Supprimer_Click(object sender, RoutedEventArgs e)
         {
             int index = DGAdoption.SelectedIndex;
@@ -227,6 +269,10 @@ namespace Gestion_Animaux.Frames.Adoptions
                 var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+        /// <summary>
+        /// Permet de modifier l'apparence de la fenetre en passant du menu de consultation des données avec le tableau,
+        /// au menu d'ajout de données avec le formulaire.
+        /// </summary>
         private void Switch()
         {
             if (form.Visibility == Visibility.Visible)
@@ -242,6 +288,12 @@ namespace Gestion_Animaux.Frames.Adoptions
                 form.Visibility = Visibility.Visible;
             }
         }
+        /// <summary>
+        /// Evenement de clique du bouton de validation du formulaire d'ajout. Permet de valider l'entree de données si le formulaire est complet,
+        /// et ajouter à la base la nouvelle ligne.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             Adoption newAdoption = new Adoption();
@@ -271,9 +323,6 @@ namespace Gestion_Animaux.Frames.Adoptions
 
 
         }
-        private static bool IsTextAllowed(string text)
-        {
-            return !_regex.IsMatch(text);
-        }
+
     }
 }

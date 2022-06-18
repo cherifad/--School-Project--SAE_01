@@ -47,7 +47,6 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Background="#FFE60202"
-            Click="Annuler_Modification_Click"
             Content="Annuler les modifications"
             FontFamily="Segoe UI Semibold"
             FontSize="16"

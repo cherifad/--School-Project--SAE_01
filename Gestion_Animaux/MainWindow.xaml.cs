@@ -31,52 +31,53 @@ namespace Gestion_Animaux
              UriKind.RelativeOrAbsolute));
 
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
-
-        private void Switch_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
+        
+        /// <summary>
+        /// Modifie la fenetre à l'appuie du bouton Gérer Adoption et envoi sur la fenetre correspondante.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Adoption_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new System.Uri("/Frames/Adoptions/GestionAdoption.xaml",
              UriKind.RelativeOrAbsolute));
         }
-
-        private void MinimizeWindow_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.WindowMain.WindowState = WindowState.Minimized;
-        }
-
+        
+        /// <summary>
+        /// Modifie la fenetre à l'appuie du bouton Gérer Espece et envoi sur la fenetre correspondante.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Espece_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new System.Uri("/Frames/Espece/EspeceFrame.xaml",
              UriKind.RelativeOrAbsolute));
         }
 
-        private void fermer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.WindowMain.WindowState = WindowState.Minimized;
-        }
-
+        
+        /// <summary>
+        /// Permet de fermer la fenetre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exit_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Application.Current.Shutdown();
         }
-
+        /// <summary>
+        /// Permet d'agrandir ou rendre flottante la fenetre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void maximize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MaxMin();
         }
-
+        /// <summary>
+        /// Permet de réduire la fenêtre.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void minimize_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.WindowMain.WindowState = WindowState.Minimized;
@@ -95,13 +96,22 @@ namespace Gestion_Animaux
                 , null);
             }
         }
-
+        /// <summary>
+        /// Modifie la fenetre à l'appuie du bouton Gérer Animaux et envoi sur la fenetre correspondante.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Animaux_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new System.Uri("/Frames/Animaux/GestionAnimaux.xaml",
              UriKind.RelativeOrAbsolute));
         }
-
+        /// <summary>
+        /// Permet de rendre la barre du haut de fentre clicquable. Permet de déplacer la fenetre,
+        /// la rendre flottante/l'agrandir en cas de double clique.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void statusBar_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -122,7 +132,10 @@ namespace Gestion_Animaux
 
             DragMove();
         }
-
+        /// <summary>
+        /// Renvoi si la fentre prend l'ecran entier ou non.
+        /// </summary>
+        /// <returns></returns>
         private bool IsMaximized()
         {
             bool value = false;
@@ -135,7 +148,9 @@ namespace Gestion_Animaux
 
             return value;
         }
-
+        /// <summary>
+        /// Permet d'agrandir la fenetre si elle est flottante et inversement, la rendre flottante si elle est agrandie au max.
+        /// </summary>
         private void MaxMin()
         {
             if (IsMaximized())
@@ -153,7 +168,11 @@ namespace Gestion_Animaux
                 WindowMain.Width = SystemParameters.WorkArea.Width;
             }
         }
-
+        /// <summary>
+        /// Permet de rendre la barre du haut de fentre interagissable.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             /* 如何在Window.ResizeMode属性为CanResize的时候，阻止窗口拖动到屏幕边缘自动最大化。
@@ -185,12 +204,20 @@ namespace Gestion_Animaux
                 }
             }
     }
-
+        /// <summary>
+        /// Envoi sur GitHub en cas d'appui sur voir le code source.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             System.Diagnostics.Process.Start("cmd", "/c start https://github.com/Nelda74/SAE_01");
         }
-
+        /// <summary>
+        /// Permet de modifier le nom de la fenetre en fonction la localisation dans l'application.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
             Page page = e.Content as Page;    
@@ -198,13 +225,21 @@ namespace Gestion_Animaux
             if (page != null)   
                 title.Content = page.Title.ToUpper();
         }
-
+        /// <summary>
+        /// Envoi sur l'accueil en cas de clique sur l'image.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             MainFrame.Navigate(new System.Uri("/Frames/Main/Main.xaml",
              UriKind.RelativeOrAbsolute));
         }
-
+        /// <summary>
+        /// Modifie la fenetre à l'appuie du bouton Gérer Adoptant et envoi sur la fenetre correspondante.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Adoptant_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new System.Uri("/Frames/Adoptants/GestionAdoptant.xaml",

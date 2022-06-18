@@ -259,6 +259,5 @@ namespace Gestion_Animaux.Frames.Adoptants
             }
         }
 
-        
     }
 }
