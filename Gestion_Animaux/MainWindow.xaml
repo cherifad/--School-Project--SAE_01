@@ -55,7 +55,7 @@
                         Height="179"
                         Margin="10,10,15,0"
                         VerticalAlignment="Top"
-                        Source="/PNG-Animaux-Refuge.png" />
+                        Source="/PNG-Animaux-Refuge.png" MouseLeftButtonDown="Image_MouseLeftButtonDown" />
                     <Button
                         x:Name="Adoption"
                         Height="45"
@@ -104,32 +104,15 @@
                         Foreground="White"
                         Style="{DynamicResource ButtonStyle1}" />
 
-                    <Button
-                        x:Name="test"
-                        Height="45"
-                        Margin="10,405,15,0"
-                        VerticalAlignment="Top"
-                        Background="#FF238636"
-                        Content="TEST"
-                        FontFamily="Segoe UI Semibold"
-                        FontSize="16"
-                        Foreground="White"
-                        Style="{DynamicResource ButtonStyle1}" Click="test_Click" />
-
                     <Label
-                        Grid.Column="1"
-                        Width="170"
-                        Height="9"
-                        Margin="370,465,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Background="{x:Null}"
-                        Content="Label"
-                        Foreground="White" />
+                        Content="©2022 - Voir le code source"
+                        FontFamily="Segoe UI Semibold"
+                        FontSize="10"
+                        Foreground="Black" MouseLeftButtonDown="Label_MouseLeftButtonDown" Cursor="Hand" HorizontalAlignment="Center" Width="234" Height="23" VerticalAlignment="Bottom" />
                     <Frame
                         Name="MainFrame"
                         Grid.Column="1"
-                        NavigationUIVisibility="Hidden" />
+                        NavigationUIVisibility="Hidden" Navigated="MainFrame_Navigated" />
                 </Grid>
             </Border>
             <Ellipse
@@ -202,6 +185,7 @@
                 RadiusX="14"
                 RadiusY="14" />
             <Label
+                x:Name="title"
                 Width="118"
                 Margin="10,0,0,0"
                 HorizontalAlignment="Left"

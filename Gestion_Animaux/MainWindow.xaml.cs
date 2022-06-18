@@ -186,9 +186,22 @@ namespace Gestion_Animaux
             }
     }
 
-        private void test_Click(object sender, RoutedEventArgs e)
+        private void Label_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MainFrame.Navigate(new System.Uri("/Frames/Tests/stack.xaml",
+            System.Diagnostics.Process.Start("cmd", "/c start https://github.com/Nelda74/SAE_01");
+        }
+
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            Page page = e.Content as Page;    
+
+            if (page != null)   
+                title.Content = page.Title.ToUpper();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("/Frames/Main/Main.xaml",
              UriKind.RelativeOrAbsolute));
         }
 

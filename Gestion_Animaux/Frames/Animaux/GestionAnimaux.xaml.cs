@@ -244,17 +244,22 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void Switch()
         {
-            if (form.Visibility == Visibility.Visible)
+            switch (form.Visibility)
             {
-                Ajouter.Content = "Ajouter un animal";
-                DGAnimaux.Visibility = Visibility.Visible;
-                form.Visibility = Visibility.Hidden;
-            }
-            else if (form.Visibility == Visibility.Hidden)
-            {
-                Ajouter.Content = "Retour";
-                DGAnimaux.Visibility = Visibility.Hidden;
-                form.Visibility = Visibility.Visible;
+                case Visibility.Visible:
+                    Ajouter.Content = "Ajouter un animal";
+                    DGAnimaux.Visibility = Visibility.Visible;
+                    form.Visibility = Visibility.Hidden;
+                    break;
+                case Visibility.Hidden:
+                    Ajouter.Content = "Retour";
+                    DGAnimaux.Visibility = Visibility.Hidden;
+                    form.Visibility = Visibility.Visible;
+                    break;
+                case Visibility.Collapsed:
+                    break;
+                default:
+                    break;
             }
         }
     }

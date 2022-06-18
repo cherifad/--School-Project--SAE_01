@@ -21,6 +21,11 @@ namespace Gestion_Animaux.Frames.Main
         public Main()
         {
             InitializeComponent();
+
+            nbAdoptants.Content = ApplicationData.listeAdoptants.Count.ToString();  
+            nbAdoptions.Content = ApplicationData.listeAdoptions.Count.ToString();  
+            nbAnimaux.Content = ApplicationData.listeAnimaux.Count.ToString();  
+            nbEspeces.Content = ApplicationData.listeTypeAnimal.Count.ToString();
         }
     }
 }
