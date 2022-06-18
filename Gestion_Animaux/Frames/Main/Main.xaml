@@ -169,6 +169,11 @@
 
             </StackPanel>
 
+            <StackPanel>
+                <ContentControl x:Name="browserContainer" Height="300" Width="300" Content=""/>
+
+            </StackPanel>
+
         </WrapPanel>
     </Grid>
 </Page>

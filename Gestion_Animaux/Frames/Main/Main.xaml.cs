@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CefSharp.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace Gestion_Animaux.Frames.Main
             nbAdoptions.Content = ApplicationData.listeAdoptions.Count.ToString();  
             nbAnimaux.Content = ApplicationData.listeAnimaux.Count.ToString();  
             nbEspeces.Content = ApplicationData.listeTypeAnimal.Count.ToString();
+
         }
     }
 }

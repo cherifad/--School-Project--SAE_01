@@ -275,17 +275,22 @@ namespace Gestion_Animaux.Frames.Adoptions
         /// </summary>
         private void Switch()
         {
-            if (form.Visibility == Visibility.Visible)
+            switch (form.Visibility)
             {
-                Ajouter.Content = "Ajouter une adoption";
-                DGAdoption.Visibility = Visibility.Visible;
-                form.Visibility = Visibility.Hidden;
-            }
-            else if (form.Visibility == Visibility.Hidden)
-            {
-                Ajouter.Content = "Retour";
-                DGAdoption.Visibility = Visibility.Hidden;
-                form.Visibility = Visibility.Visible;
+                case Visibility.Visible:
+                    Ajouter.Content = "Ajouter un animal";
+                    DGAdoption.Visibility = Visibility.Visible;
+                    form.Visibility = Visibility.Hidden;
+                    break;
+                case Visibility.Hidden:
+                    Ajouter.Content = "Retour";
+                    DGAdoption.Visibility = Visibility.Hidden;
+                    form.Visibility = Visibility.Visible;
+                    break;
+                case Visibility.Collapsed:
+                    break;
+                default:
+                    break;
             }
         }
         /// <summary>
@@ -341,5 +346,24 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         }
 
+        private void Annuler_Click(object sender, RoutedEventArgs e)
+        {
+            string message = $"Vous êtes sur le point d'annuler \n{indexModifs.Count} mofifications .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                indexModifs.Clear();
+
+                foreach (var item in DGAdoption.Items)
+                {
+                    DataGridRow dataGridRow = DGAdoption.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+
+                    if (dataGridRow != null)
+                        dataGridRow.Background = default;
+                }
+            }
+        }
     }
 }

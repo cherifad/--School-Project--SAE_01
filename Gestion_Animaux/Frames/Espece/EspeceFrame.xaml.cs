@@ -23,7 +23,7 @@ namespace Gestion_Animaux.Frames.Espece
     {
         public ObservableCollection<TypeAnimal> ListeTypeAnimal { get; set; }
         List<TypeAnimal> modifsListe;
-        List<int> indexMofifs;
+        List<int> indexModifs;
         private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public EspeceFrame()
         {
@@ -40,7 +40,7 @@ namespace Gestion_Animaux.Frames.Espece
 
             modifsListe = new List<TypeAnimal>();
 
-            indexMofifs = new List<int>();
+            indexModifs = new List<int>();
 
             this.DataContext = this;
         }
@@ -88,7 +88,7 @@ namespace Gestion_Animaux.Frames.Espece
                 }
             }
         }
-        
+
 
         private void DGTypeAnimal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -117,13 +117,13 @@ namespace Gestion_Animaux.Frames.Espece
 
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string message = $"Vous êtes sur le point de valider {indexModifs.Count} modification(s).\nVoulez-vous continuer ?";
             string title = "Validation";
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
-                UpdateModifList(indexMofifs);
+                UpdateModifList(indexModifs);
 
                 load.IsActive = true;
                 foreach (var item in modifsListe)
@@ -164,7 +164,7 @@ namespace Gestion_Animaux.Frames.Espece
 
         }
 
-        
+
 
         void Toggle()
         {
@@ -188,17 +188,22 @@ namespace Gestion_Animaux.Frames.Espece
         }
         private void Switch()
         {
-            if (form.Visibility == Visibility.Visible)
+            switch (form.Visibility)
             {
-                Ajouter.Content = "Ajouter une espèce";
-                DGTypeAnimal.Visibility = Visibility.Visible;
-                form.Visibility = Visibility.Hidden;
-            }
-            else if (form.Visibility == Visibility.Hidden)
-            {
-                Ajouter.Content = "Retour";
-                DGTypeAnimal.Visibility = Visibility.Hidden;
-                form.Visibility = Visibility.Visible;
+                case Visibility.Visible:
+                    Ajouter.Content = "Ajouter un animal";
+                    DGTypeAnimal.Visibility = Visibility.Visible;
+                    form.Visibility = Visibility.Hidden;
+                    break;
+                case Visibility.Hidden:
+                    Ajouter.Content = "Retour";
+                    DGTypeAnimal.Visibility = Visibility.Hidden;
+                    form.Visibility = Visibility.Visible;
+                    break;
+                case Visibility.Collapsed:
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -234,7 +239,7 @@ namespace Gestion_Animaux.Frames.Espece
 
         private void DGTypeAnimal_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            indexMofifs.Add(e.Row.GetIndex());
+            indexModifs.Add(e.Row.GetIndex());
 
             e.Row.Background = Brushes.Orange;
         }
@@ -246,6 +251,26 @@ namespace Gestion_Animaux.Frames.Espece
         private void addEspeceIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = IsTextAllowed(e.Text);
+        }
+
+        private void Annuler_Click(object sender, RoutedEventArgs e)
+        {
+            string message = $"Vous êtes sur le point d'annuler \n{indexModifs.Count} mofifications .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                indexModifs.Clear();
+
+                foreach (var item in DGTypeAnimal.Items)
+                {
+                    DataGridRow dataGridRow = DGTypeAnimal.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+
+                    if (dataGridRow != null)
+                        dataGridRow.Background = default;
+                }
+            }
         }
     }
 }

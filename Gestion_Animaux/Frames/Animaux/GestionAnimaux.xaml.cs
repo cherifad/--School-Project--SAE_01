@@ -23,7 +23,7 @@ namespace Gestion_Animaux.Frames.Animaux
     {
         public ObservableCollection<Animal> ListeAnimaux { get; set; }
         List<Animal> modifsListe;
-        List<int> indexMofifs;
+        List<int> indexModifs;
         public ObservableCollection<TypeAnimal> ListeTypeAnimal { get; set; }
         private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
 
@@ -49,7 +49,7 @@ namespace Gestion_Animaux.Frames.Animaux
 
             modifsListe = new List<Animal>();
 
-            indexMofifs = new List<int>();
+            indexModifs = new List<int>();
 
             addEspeceIn.ItemsSource = ApplicationData.listeTypeAnimal;
 
@@ -74,13 +74,13 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string message = $"Vous êtes sur le point de valider {indexModifs.Count} modification(s).\nVoulez-vous continuer ?";
             string title = "Validation";
             var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (result == MessageBoxResult.Yes)
             {
-                UpdateModifList(indexMofifs);
+                UpdateModifList(indexModifs);
 
                 load.IsActive = true;
                 foreach (var item in modifsListe)
@@ -110,7 +110,7 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void DGAnimaux_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            indexMofifs.Add(e.Row.GetIndex());
+            indexModifs.Add(e.Row.GetIndex());
 
             e.Row.Background = Brushes.Orange;
         }
@@ -285,5 +285,24 @@ namespace Gestion_Animaux.Frames.Animaux
             }
         }
 
+        private void Annuler_Click(object sender, RoutedEventArgs e)
+        {
+            string message = $"Vous êtes sur le point d'annuler \n{indexModifs.Count} mofifications .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                indexModifs.Clear();
+
+                foreach (var item in DGAnimaux.Items)
+                {
+                    DataGridRow dataGridRow = DGAnimaux.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+
+                    if (dataGridRow != null)
+                        dataGridRow.Background = default;
+                }
+            }
+        }
     }
 }

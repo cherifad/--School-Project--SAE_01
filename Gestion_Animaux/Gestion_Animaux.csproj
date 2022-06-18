@@ -4,11 +4,17 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Sans_titre__44_-removebg-preview.ico</ApplicationIcon>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="content\PNG-Animaux-Refuge.png" />
     <None Remove="PNG-Animaux-Refuge.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sans_titre__44_-removebg-preview.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -51,7 +51,7 @@
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" />
+            Style="{DynamicResource ButtonStyle1}" Click="Annuler_Click" />
         <Button
             x:Name="Supprimer"
             Width="231"

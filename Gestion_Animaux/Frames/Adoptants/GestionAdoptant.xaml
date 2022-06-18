@@ -76,7 +76,7 @@
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
-            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Bottom" />
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Bottom" Click="Annuler_Click" />
         <Button
             x:Name="Ajouter"
             Width="231"

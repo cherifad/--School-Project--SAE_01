@@ -266,19 +266,44 @@ namespace Gestion_Animaux.Frames.Adoptants
 
         private void Switch()
         {
-            if (form.Visibility == Visibility.Visible)
+            switch (form.Visibility)
             {
-                Ajouter.Content = "Ajouter un adoptant";
-                DGAdoptant.Visibility = Visibility.Visible;
-                form.Visibility = Visibility.Hidden;
-            }
-            else if (form.Visibility == Visibility.Hidden)
-            {
-                Ajouter.Content = "Retour";
-                DGAdoptant.Visibility = Visibility.Hidden;
-                form.Visibility = Visibility.Visible;
+                case Visibility.Visible:
+                    Ajouter.Content = "Ajouter un Adoptant";
+                    DGAdoptant.Visibility = Visibility.Visible;
+                    form.Visibility = Visibility.Hidden;
+                    break;
+                case Visibility.Hidden:
+                    Ajouter.Content = "Retour";
+                    DGAdoptant.Visibility = Visibility.Hidden;
+                    form.Visibility = Visibility.Visible;
+                    break;
+                case Visibility.Collapsed:
+                    break;
+                default:
+                    break;
             }
         }
 
+        private void Annuler_Click(object sender, RoutedEventArgs e)
+        {
+
+            string message = $"Vous êtes sur le point d'annuler \n{indexMofifs.Count} mofifications .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                indexMofifs.Clear();
+
+                foreach (var item in DGAdoptant.Items)
+                {
+                    DataGridRow dataGridRow = DGAdoptant.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+
+                    if (dataGridRow != null)
+                        dataGridRow.Background = default;
+                }
+            }            
+        }
     }
 }
