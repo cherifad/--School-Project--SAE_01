@@ -162,8 +162,21 @@ namespace Gestion_Animaux.Frames.Adoptions
                 Adoption current = (Adoption)DGAdoption.Items[index];
                 Adoptant adoptant = ApplicationData.listeAdoptants.Find(x => x.IdAdoptant == current.IdAdoptant);
                 Animal animal = ApplicationData.listeAnimaux.Find(x => x.IdAnimal == current.IdAnimal);
-                activeData.Text = $"Nom Adoptant : {adoptant.NomAdoptant}" +
-                    $"\nNom Animal : {animal.NomAnimal}" +
+                string nomAdoptant, nomAnimal;
+
+                if (adoptant != null)
+                    nomAdoptant = adoptant.NomAdoptant;
+                else
+                    nomAdoptant = "Adoptant inconnu";
+
+                if (animal != null)
+                    nomAnimal = animal.NomAnimal;
+                else
+                    nomAnimal = "Animal inconnu";
+
+
+                activeData.Text = $"Nom Adoptant : {nomAdoptant}" +
+                    $"\nNom Animal : {nomAnimal}" +
                     $"\nDate : {current.DateAdoption}" +
                     $"\nCommentaire : {current.CommentaireAdoption}";
             }
