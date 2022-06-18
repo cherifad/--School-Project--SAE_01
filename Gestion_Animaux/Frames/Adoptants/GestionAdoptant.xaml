@@ -1,0 +1,158 @@
+﻿<Page
+    x:Class="Gestion_Animaux.Frames.Adoptants.GestionAdoptant"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Gestion_Animaux.Frames.Animaux"
+    x:Name="AnimauxFrame"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    Title="Gestion Adoptant"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+
+    <Grid >
+        <DataGrid
+            Visibility="Visible"
+            x:Name="DGAdoptant"
+            Margin="0,20,283,32"
+            Padding="5"
+            BorderThickness="0"
+            CanUserAddRows="False"
+            ItemsSource="{Binding ListeAdoptant}"
+            SelectionChanged="DGAdoptant_SelectionChanged"
+            Background="Transparent"
+            RowBackground="Transparent"
+            Style="{DynamicResource DGstyle}" RowEditEnding="DGAdoptant_RowEditEnding" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto">
+
+
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Width="40"
+                    Binding="{Binding IdAdoptant}"
+                    Header="N°"
+                    IsReadOnly="True"/>
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding NomAdoptant}"
+                    x:Name="nomadoptant"
+                    Header="Nom" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding PrenomAdoptant}"
+                    Header="Prénom" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding TelAdoptant}"
+                    Header="Téléphone" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding MailAdoptant}"
+                    Header="Email" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button
+            x:Name="Valider"
+            Width="231"
+            Margin="0,0,10,120"
+            HorizontalAlignment="Right"
+            Background="#FF238636"
+            Click="Valider_Click"
+            Content="Valider les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" Height="46" VerticalAlignment="Bottom" />
+        <Button
+            x:Name="Annuler"
+            Width="231"
+            Margin="0,0,10,66"
+            HorizontalAlignment="Right"
+            Background="#FFE60202"
+            Content="Annuler les mofifications"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Bottom" />
+        <Button
+            x:Name="Ajouter"
+            Width="231"
+            Margin="0,0,10,180"
+            HorizontalAlignment="Right"
+            Background="#FF00FBD9"
+            Content="Ajouter un adoptant"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" Click="Ajouter_Click" Height="45" VerticalAlignment="Bottom" />
+        <Button
+            x:Name="Supprimer"
+            Margin="0,0,10,10"
+            Background="#FFE60202"
+            Content="Supprimer"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="White"
+            IsEnabled="False"
+            Style="{DynamicResource ButtonStyle1}" Click="Supprimer_Click" Height="45" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="231" />
+
+        <mah:ProgressRing x:Name="load" Foreground="{DynamicResource AccentColorBrush}"
+                  IsActive="False" />
+
+        <TextBlock x:Name="activeData" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black"
+            HorizontalAlignment="Right" Margin="0,69,10,267" TextWrapping="Wrap" Text="Cliquez sur un adoptant pour voir ses informations" Width="254"/>
+
+        <mah:ToggleSwitch FontSize="16"
+            FontWeight="Bold" FontFamily="Segoe UI Semibold" x:Name="modifs" Height="32" Margin="0,20,10,0" VerticalAlignment="Top" Width="254" Toggled="ToggleButton_Click" HorizontalAlignment="Right"/>
+
+        <Grid x:Name="form" Visibility="Hidden">
+            <TextBox x:Name="addNomIn" VerticalContentAlignment="Center" Height="30" Margin="104,88,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addNomIn_PreviewTextInput"/>
+
+            <Label FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Semibold"  x:Name="addTitle" Content="Ajouter un adoptant" Margin="27,24,311,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBlock x:Name="addNom" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,91,696,0" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addPrenom" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,148,0,0" TextWrapping="Wrap" Text="Prénom" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="addPrenomIn" VerticalContentAlignment="Center" Height="30" Margin="104,144,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addPrenomIn_PreviewTextInput"/>
+
+            <TextBox x:Name="addTelIn" VerticalContentAlignment="Center" Height="30" Margin="104,208,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addTelIn_PreviewTextInput"/>
+
+            <TextBlock x:Name="addTel" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,208,0,0" TextWrapping="Wrap" Text="Téléphone" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBlock x:Name="addMail" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,267,0,0" TextWrapping="Wrap" Text="Email" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
+
+            <TextBox x:Name="addMailIn" VerticalContentAlignment="Center" Height="30" Margin="104,267,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addMailIn_PreviewTextInput"/>
+
+            <Button
+            x:Name="addBtn"
+            Margin="103,339,466,0"
+            Background="#FF00FBD9"
+            Content="Ajouter un adoptant"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Click="addBtn_Click" />
+
+
+        </Grid>
+    </Grid>
+</Page>

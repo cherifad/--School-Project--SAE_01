@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,9 +23,14 @@ namespace Gestion_Animaux.Frames.Espece
     {
         public ObservableCollection<TypeAnimal> ListeTypeAnimal { get; set; }
         List<TypeAnimal> modifsListe;
+        List<int> indexMofifs;
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public EspeceFrame()
         {
             InitializeComponent();
+
+            Toggle();
+
             ListeTypeAnimal = new ObservableCollection<TypeAnimal>();
 
             foreach (var item in ApplicationData.listeTypeAnimal)
@@ -34,14 +40,13 @@ namespace Gestion_Animaux.Frames.Espece
 
             modifsListe = new List<TypeAnimal>();
 
+            indexMofifs = new List<int>();
+
             this.DataContext = this;
         }
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
-            DGTypeAnimal.Visibility = Visibility.Hidden;
-            Label_Ajouter.Visibility = Visibility.Visible;
-            Entrer_Espece.Visibility = Visibility.Visible;
-            Button_Ajouter_Valider.Visibility = Visibility.Visible;
+            Switch();
         }
         public void Update()
         {
@@ -54,35 +59,34 @@ namespace Gestion_Animaux.Frames.Espece
             this.DataContext = this;
         }
 
-        private void Button_Ajouter_Valider_Click(object sender, RoutedEventArgs e)
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(Entrer_Espece.Text))
+            TypeAnimal newTypeAnimal = new TypeAnimal();
+            newTypeAnimal.LibelleType = addEspeceIn.Text;
+
+            string infos = $"\nNom : {newTypeAnimal.LibelleType}";
+
+            string message = $"Vous êtes sur le point d'ajouté : \n{infos} .\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Entrer_Espece.BorderBrush = Brushes.Red;
-            }
-            else
-            {
-                TypeAnimal animal = new TypeAnimal(Entrer_Espece.Text);
-                animal.Create();
-                
-                DGTypeAnimal.Visibility = Visibility.Visible;
-                Label_Ajouter.Visibility = Visibility.Hidden;
-                Entrer_Espece.Visibility = Visibility.Hidden;
-                Button_Ajouter_Valider.Visibility = Visibility.Hidden;
-                Entrer_Espece.Text = "";
-                Entrer_Espece.BorderBrush = Brushes.Gray;
-                this.Update();
+                load.IsActive = true;
+                newTypeAnimal.Create();
+                ListeTypeAnimal.Add(newTypeAnimal);
+                DGTypeAnimal.Items.Refresh();
+                Switch();
+                load.IsActive = false;
             }
         }
         
 
-        private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-        }
-
         private void DGTypeAnimal_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (DGTypeAnimal.SelectedIndex == -1)
+            ActiveDataChange(DGTypeAnimal.SelectedIndex);
+
+            if (DGTypeAnimal.SelectedIndex == -1 || (!modifs.IsOn))
                 this.Supprimer.IsEnabled = false;
             else
                 this.Supprimer.IsEnabled = true;
@@ -90,13 +94,7 @@ namespace Gestion_Animaux.Frames.Espece
 
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.modifs.IsChecked == true)
-                DGTypeAnimal.IsReadOnly = false;
-            else
-            {
-                this.Supprimer.IsEnabled = false;
-                DGTypeAnimal.IsReadOnly = true;
-            }
+            Toggle();
         }
 
         private void DGTypeAnimal_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
@@ -111,29 +109,138 @@ namespace Gestion_Animaux.Frames.Espece
 
         private void Valider_Click(object sender, RoutedEventArgs e)
         {
-            List<TypeAnimal> diff = new List<TypeAnimal>();
+            string message = $"Vous êtes sur le point de valider {indexMofifs.Count} modification(s).\nVoulez-vous continuer ?";
+            string title = "Validation";
+            var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
 
-            modifsListe.Sort(TypeAnimal.CompareById);
-            ApplicationData.listeTypeAnimal.Sort(TypeAnimal.CompareById);
-
-            List<int> index = new List<int>();
-
-
-            for (int i = 0; i < modifsListe.Count; i++)
+            if (result == MessageBoxResult.Yes)
             {
-                if (modifsListe[i] != ApplicationData.listeTypeAnimal[i])
-                    index.Add(i);
+                UpdateModifList(indexMofifs);
+
+                load.IsActive = true;
+                foreach (var item in modifsListe)
+                {
+                    item.Update();
+                }
+                load.IsActive = false;
             }
 
+        }
+        void UpdateModifList(List<int> index)
+        {
+            TypeAnimal newTypeAnimal, oldTypeAnimal;
 
+            foreach (var item in index)
+            {
+                newTypeAnimal = (TypeAnimal)DGTypeAnimal.Items[item];
+                oldTypeAnimal = ApplicationData.listeTypeAnimal.Find(x => x.IdType == newTypeAnimal.IdType);
 
-            //this.select.Content = modifsListe[0].IdAnimal.ToString();
+                if (oldTypeAnimal != null /*&& oldAnimal != newAnimal*/)
+                {
+                    modifsListe.Add(newTypeAnimal);
+                }
+            }
+        }
+        void ActiveDataChange(int index)
+        {
+            if (index != -1)
+            {
+                TypeAnimal current = (TypeAnimal)DGTypeAnimal.Items[index];
+                activeData.Text = $"N° unique : {current.IdType}" +
+                    $"\nNom : {current.LibelleType}";
+            }
+            else
+            {
+                activeData.Text = "Cliquez sur un type d'animal pour voir ses informations";
+            }
 
         }
 
         private void Annuler_Modification_Click(object sender, RoutedEventArgs e)
         {
             this.Update();
+        }
+
+        void Toggle()
+        {
+            if (this.modifs.IsOn)
+            {
+                DGTypeAnimal.IsReadOnly = false;
+                modifs.OnContent = "Modification activée";
+                modifs.Foreground = Brushes.Green;
+                Valider.IsEnabled = true;
+                Annuler.IsEnabled = true;
+            }
+            else
+            {
+                modifs.OffContent = "Modification désactivée";
+                modifs.Foreground = Brushes.Red;
+                this.Supprimer.IsEnabled = false;
+                DGTypeAnimal.IsReadOnly = true;
+                Valider.IsEnabled = false;
+                Annuler.IsEnabled = false;
+            }
+        }
+        private void Switch()
+        {
+            if (form.Visibility == Visibility.Visible)
+            {
+                Ajouter.Content = "Ajouter une espèce";
+                DGTypeAnimal.Visibility = Visibility.Visible;
+                form.Visibility = Visibility.Hidden;
+            }
+            else if (form.Visibility == Visibility.Hidden)
+            {
+                Ajouter.Content = "Retour";
+                DGTypeAnimal.Visibility = Visibility.Hidden;
+                form.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Supprimer_Click(object sender, RoutedEventArgs e)
+        {
+            int index = DGTypeAnimal.SelectedIndex;
+            if (index != -1)
+            {
+                TypeAnimal current = (TypeAnimal)DGTypeAnimal.Items[index];
+                string infos = $"N° unique : {current.IdType}" +
+                    $"\nNom : {current.LibelleType}";
+
+                string message = $"Vous êtes sur le point de supprimé : \n{infos} .\nVoulez-vous continuer ?";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    load.IsActive = true;
+                    current.Delete();
+                    ListeTypeAnimal.RemoveAt(index);
+                    DGTypeAnimal.Items.Refresh();
+                    load.IsActive = false;
+                }
+            }
+            else
+            {
+                string message = $"Aucun type d'animal selectioné !";
+                string title = "Validation";
+                var result = MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void DGTypeAnimal_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            indexMofifs.Add(e.Row.GetIndex());
+
+            e.Row.Background = Brushes.Orange;
+        }
+        private static bool IsTextAllowed(string text)
+        {
+            return !_regex.IsMatch(text);
+        }
+
+        private void addEspeceIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsTextAllowed(e.Text);
         }
     }
 }

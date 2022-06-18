@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Gestion_Animaux.Frames.Espece"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     Title="EspeceFrame"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -16,9 +16,9 @@
             x:Name="Ajouter"
             Width="231"
             Height="45"
-            Margin="0,225,10,0"
+            Margin="0,0,10,180"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="#FF00FBD9"
             Click="Ajouter_Click"
             Content="Ajouter une espèce"
@@ -27,12 +27,12 @@
             Foreground="Black"
             Style="{DynamicResource ButtonStyle1}" />
         <Button
-            x:Name="Valider_Modification"
+            x:Name="Valider"
             Width="231"
             Height="45"
-            Margin="0,284,10,0"
+            Margin="0,0,10,120"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="#FF238636"
             Content="Valider les modifications"
             FontFamily="Segoe UI Semibold"
@@ -40,12 +40,12 @@
             Foreground="White"
             Style="{DynamicResource ButtonStyle1}" />
         <Button
-            x:Name="Annuler_Modification"
+            x:Name="Annuler"
             Width="231"
             Height="45"
-            Margin="0,339,10,0"
+            Margin="0,0,10,66"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="#FFE60202"
             Click="Annuler_Modification_Click"
             Content="Annuler les modifications"
@@ -57,110 +57,72 @@
             x:Name="Supprimer"
             Width="231"
             Height="45"
-            Margin="0,395,10,0"
+            Margin="0,0,10,10"
             HorizontalAlignment="Right"
-            VerticalAlignment="Top"
+            VerticalAlignment="Bottom"
             Background="#FFE60202"
             Content="Supprimer"
             FontFamily="Segoe UI Semibold"
             FontSize="16"
             Foreground="White"
             IsEnabled="False"
-            Style="{DynamicResource ButtonStyle1}" />
-        <Label
-            x:Name="Label_Ajouter"
-            Grid.Row="1"
-            Width="150"
-            Margin="205,60"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Nom de l'espèce :"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16"
-            Visibility="Hidden" />
-        <TextBox
-            x:Name="Entrer_Espece"
-            Grid.Row="1"
-            Width="150"
-            Height="20"
-            Margin="205,100"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            BorderBrush="Gray"
-            Visibility="Hidden" />
-        <Button
-            x:Name="Button_Ajouter_Valider"
-            Grid.Row="2"
-            Width="100"
-            Height="30"
-            Margin="230,200"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Background="#FF00FBD9"
-            Click="Button_Ajouter_Valider_Click"
-            Content="Valider"
-            FontFamily="Segoe UI Semibold"
-            FontSize="16"
-            Style="{DynamicResource ButtonStyle1}"
-            Visibility="Hidden" />
+            Style="{DynamicResource ButtonStyle1}" Click="Supprimer_Click" />
+
         <DataGrid
+            Visibility="Visible"
             x:Name="DGTypeAnimal"
-            Height="420"
-            Margin="0,20,249,0"
-            Padding="15"
-            VerticalAlignment="Top"
+            Margin="0,20,283,32"
+            Padding="5"
             Background="Transparent"
-            BorderThickness="2"
+            BorderThickness="0"
             CanUserAddRows="False"
             CellEditEnding="DGTypeAnimal_CellEditEnding"
-            ColumnWidth="*"
             ItemsSource="{Binding ListeTypeAnimal}"
             RowBackground="Transparent"
             SelectionChanged="DGTypeAnimal_SelectionChanged"
-            Style="{StaticResource MahApps.Styles.DataGrid.Azure}">
+            Style="{DynamicResource DGstyle}" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto" RowEditEnding="DGTypeAnimal_RowEditEnding">
 
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGrid}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type DataGrid}">
-                                <Border Background="Red" CornerRadius="5" />
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn
-                    Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
-                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
-                    Header="IsSelected" />
+                <DataGridTextColumn Width="40" Header="N°" Binding="{Binding IdType}" IsReadOnly="True"/>
+                <DataGridTextColumn Width="*" Header="Libelle" Binding="{Binding LibelleType}"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <ToggleButton
-            x:Name="modifs"
-            Width="70"
-            Height="35"
-            Margin="0,20,10,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Click="ToggleButton_Click"
-            Style="{StaticResource SwitchTypeToggleButton}" />
-        <Label
-            Width="164"
-            Height="34"
-            Margin="556,20,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            VerticalContentAlignment="Center"
-            Content="Modification"
-            FontFamily="Segoe UI Semibold"
+        <mah:ProgressRing x:Name="load" Foreground="{DynamicResource AccentColorBrush}"
+                  IsActive="False" />
+
+        <mah:ToggleSwitch FontSize="16"
+            FontWeight="Bold" FontFamily="Segoe UI Semibold" x:Name="modifs" Height="32" Margin="0,20,10,0" VerticalAlignment="Top" Width="254" Toggled="ToggleButton_Click" HorizontalAlignment="Right"/>
+
+        <TextBlock x:Name="activeData" FontFamily="Segoe UI Semibold"
             FontSize="16"
             FontWeight="Bold"
-            Foreground="Black" />
+            Foreground="Black"
+            HorizontalAlignment="Right" Margin="0,69,10,267" TextWrapping="Wrap" Text="Cliquez sur un type d'animal pour voir ses informations" Width="254"/>
+
+
+        <Grid x:Name="form" Visibility="Hidden">
+            <Label FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Semibold"  x:Name="addTitle" Content="Ajouter une espèce" Margin="27,24,311,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBox x:Name="addEspeceIn" VerticalContentAlignment="Center" Height="30" Margin="104,88,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addEspeceIn_PreviewTextInput"/>
+
+            <TextBlock x:Name="addEspece" FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            FontWeight="Bold"
+            Foreground="Black" Margin="19,91,696,0" TextWrapping="Wrap" Text="Nom" VerticalAlignment="Top"/>
+
+            <Button
+            x:Name="addBtn"
+            Margin="103,229,466,0"
+            Background="#FF00FBD9"
+            Content="Ajouter une espèce"
+            FontFamily="Segoe UI Semibold"
+            FontSize="16"
+            Foreground="Black"
+            Style="{DynamicResource ButtonStyle1}" Height="45" VerticalAlignment="Top" Click="addBtn_Click" />
+
+
+        </Grid>
     </Grid>
 </Page>

@@ -83,7 +83,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    access.setData("insert into [iut-acy\\reydetb].TypeAnimal (libelletype) values ('" + this.LibelleType + "')");
+                    access.setData($"insert into [iut-acy\\reydetb].TypeAnimal (libelletype) values ('{this.LibelleType}')");
                 }
             }
             catch (Exception ex)
@@ -100,12 +100,50 @@ namespace Gestion_Animaux
 
         public void Update()
         {
-            throw new NotImplementedException();
+            int id = this.IdType;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].TypeAnimal SET IDTYPE = '{this.IdType}', LIBELLETYPE  = '{this.LibelleType}' WHERE idType = {id}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible d'ajouter des données (id : {id}";
+                        string title = "Erreur d'ajout";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message TypeAnimal Update");
+            }
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            int id = this.IdType;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"DELETE FROM [iut-acy\\reydetb].TypeAnimal WHERE idType = {id}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible de supprimé le type animal (ID : {id} ";
+                        string title = "Erreur de suppression";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message TypeAnimal");
+            }
         }
 
         public List<TypeAnimal> FindBySelection(string criteres)

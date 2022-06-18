@@ -191,6 +191,12 @@ namespace Gestion_Animaux
             MainFrame.Navigate(new System.Uri("/Frames/Tests/stack.xaml",
              UriKind.RelativeOrAbsolute));
         }
+
+        private void Adoptant_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new System.Uri("/Frames/Adoptants/GestionAdoptant.xaml",
+             UriKind.RelativeOrAbsolute));
+        }
     }
     
 

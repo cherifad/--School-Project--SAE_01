@@ -114,7 +114,7 @@ namespace Gestion_Animaux
             {
                 if (access.openConnection())
                 {
-                    access.setData($"insert into [iut-acy\\reydetb].Adoptant (nomadoptant, prenomadoptant, teladoptant, mailadoptant) values ({this.NomAdoptant}, {this.PrenomAdoptant}, {this.TelAdoptant}, {this.MailAdoptant})");
+                    access.setData($"insert into [iut-acy\\reydetb].Adoptant (nomadoptant, prenomadoptant, teladoptant, mailadoptant) values ('{this.NomAdoptant}', '{this.PrenomAdoptant}', '{this.TelAdoptant}', '{this.MailAdoptant}')");
                 }
                 access.closeConnection();
             }
@@ -131,12 +131,50 @@ namespace Gestion_Animaux
 
         public void Update()
         {
-            throw new NotImplementedException();
+            int id = this.IdAdoptant;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"UPDATE [iut-acy\\reydetb].Adoptant SET IDADOPTANT = '{this.IdAdoptant}', NOMADOPTANT  = '{this.NomAdoptant}', PRENOMADPTANT = '{this.PrenomAdoptant}', TELADOPTANT = '{this.TelAdoptant}', MAILADOPTANT = '{this.MailAdoptant}' WHERE idAdoptant = {id}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible d'ajouter des données (id : {id}";
+                        string title = "Erreur d'ajout";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adoptant Update");
+            }
         }
 
         public void Delete()
         {
-            throw new NotImplementedException();
+            int id = this.IdAdoptant;
+            DataAccess access = new DataAccess();
+            try
+            {
+                if (access.openConnection())
+                {
+                    bool writer = access.setData($"DELETE FROM [iut-acy\\reydetb].Adoptant WHERE idAdoptant = {id}");
+                    if (!writer)
+                    {
+                        string message = $"Impossible de supprimé l'adoptant (ID : {id} ";
+                        string title = "Erreur de suppression";
+                        var result = System.Windows.MessageBox.Show(message, title, System.Windows.MessageBoxButton.YesNo, System.Windows.MessageBoxImage.Exclamation);
+                    }
+                    access.closeConnection();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Important Message Adpotant");
+            }
         }
 
         public List<Adoptant> FindBySelection(string criteres)
