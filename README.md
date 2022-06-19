@@ -7,3 +7,4 @@
 En partant d'un besoin exprimé par un client et nécessitant une interface graphique, l'objectif est de formaliser les besoins, proposer une conception, implémenter et tester son développement. Cette SAÉ permet la concrétisation du développement autour d'une application avec une interface graphique répondant à un contexte précis.
 
 ![GitHub](https://img.shields.io/github/license/Nelda74/SAE_01)
+![Keybase BTC](https://img.shields.io/keybase/btc/skyplabs)
