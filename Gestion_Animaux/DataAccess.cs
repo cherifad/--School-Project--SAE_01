@@ -8,7 +8,7 @@ namespace Gestion_Animaux
     /// Permet d'accéder à la base de données.
     /// Ne doit être utilisée que par la couche modèle pour implémenter un CRUD.
     /// </summary>
-    class DataAccess
+    public class DataAccess
     {
         private SqlConnection connection;
 

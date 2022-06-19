@@ -15,6 +15,8 @@ namespace Gestion_Animaux
             }
             set
             {
+                if (value == null)
+                    throw new ArgumentNullException("IdAdoptant ne doit pas être null.");
                 idAdoptant = value;
             }
         }
@@ -27,6 +29,8 @@ namespace Gestion_Animaux
             }
             set
             {
+                if(value==null)
+                    throw new ArgumentNullException("IdAnimal ne doit pas être null.");
                 idAnimal = value;
             }
         }
@@ -190,6 +194,25 @@ namespace Gestion_Animaux
         public static int CompareById(Adoption value1, Adoption value2)
         {
             return value1.IdAdoptant.CompareTo(value2.IdAdoptant);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Adoption adoption &&
+                   IdAdoptant == adoption.IdAdoptant &&
+                   IdAnimal == adoption.IdAnimal &&
+                   DateAdoption == adoption.DateAdoption &&
+                   CommentaireAdoption == adoption.CommentaireAdoption;
+        }
+
+        public static bool operator ==(Adoption left, Adoption right)
+        {
+            return EqualityComparer<Adoption>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(Adoption left, Adoption right)
+        {
+            return !(left == right);
         }
     }
 }
