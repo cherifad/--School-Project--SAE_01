@@ -83,19 +83,6 @@ namespace Gestion_Animaux
             this.WindowMain.WindowState = WindowState.Minimized;
         }
 
-        protected override void OnActivated(EventArgs e)
-        {
-            base.OnActivated(e);
-            if (WindowStyle != WindowStyle.None)
-            {
-                Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, (DispatcherOperationCallback)delegate (object unused)
-                {
-                    WindowStyle = WindowStyle.None;
-                    return null;
-                }
-                , null);
-            }
-        }
         /// <summary>
         /// Modifie la fenetre à l'appuie du bouton Gérer Animaux et envoi sur la fenetre correspondante.
         /// </summary>
@@ -106,6 +93,7 @@ namespace Gestion_Animaux
             MainFrame.Navigate(new System.Uri("/Frames/Animaux/GestionAnimaux.xaml",
              UriKind.RelativeOrAbsolute));
         }
+
         /// <summary>
         /// Permet de rendre la barre du haut de fentre clicquable. Permet de déplacer la fenetre,
         /// la rendre flottante/l'agrandir en cas de double clique.
@@ -150,6 +138,8 @@ namespace Gestion_Animaux
         }
         /// <summary>
         /// Permet d'agrandir la fenetre si elle est flottante et inversement, la rendre flottante si elle est agrandie au max.
+        /// Avec un style de fenêtre à 'None', appeler 'WindowsState.Maximized' reviendrait à mettre la fenêtre en plein écran, 
+        /// cette fonction contourne ce problème.
         /// </summary>
         private void MaxMin()
         {
@@ -175,10 +165,6 @@ namespace Gestion_Animaux
         /// <param name="e"></param>
         private void statusBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            /* 如何在Window.ResizeMode属性为CanResize的时候，阻止窗口拖动到屏幕边缘自动最大化。
-               (When the Window.ResizeMode property is CanResize, 
-               when the window is dragged to the edge of the screen, 
-               it prevents the window from automatically maximizing.)*/
             if (e.ChangedButton == MouseButton.Left)
             {
                 if (Mouse.LeftButton == MouseButtonState.Pressed)
@@ -203,7 +189,8 @@ namespace Gestion_Animaux
                     this.UpdateLayout();
                 }
             }
-    }
+        }
+
         /// <summary>
         /// Envoi sur GitHub en cas d'appui sur voir le code source.
         /// </summary>
@@ -213,6 +200,7 @@ namespace Gestion_Animaux
         {
             System.Diagnostics.Process.Start("cmd", "/c start https://github.com/Nelda74/SAE_01");
         }
+
         /// <summary>
         /// Permet de modifier le nom de la fenetre en fonction la localisation dans l'application.
         /// </summary>
@@ -225,6 +213,7 @@ namespace Gestion_Animaux
             if (page != null)   
                 title.Content = page.Title.ToUpper();
         }
+
         /// <summary>
         /// Envoi sur l'accueil en cas de clique sur l'image.
         /// </summary>
@@ -235,6 +224,7 @@ namespace Gestion_Animaux
             MainFrame.Navigate(new System.Uri("/Frames/Main/Main.xaml",
              UriKind.RelativeOrAbsolute));
         }
+
         /// <summary>
         /// Modifie la fenetre à l'appuie du bouton Gérer Adoptant et envoi sur la fenetre correspondante.
         /// </summary>

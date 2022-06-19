@@ -346,6 +346,12 @@ namespace Gestion_Animaux.Frames.Adoptions
 
         }
 
+        /// <summary>
+        /// Evenement de clique du bouton d'annulation des modifications. Le tableau gérant les modifications non validées 
+        /// est vidé et les lignes reprennent leur couleur de base.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Annuler_Click(object sender, RoutedEventArgs e)
         {
             string message = $"Vous êtes sur le point d'annuler \n{indexModifs.Count} mofifications .\nVoulez-vous continuer ?";
