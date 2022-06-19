@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31321.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gestion_Animaux", "Gestion_Animaux\Gestion_Animaux.csproj", "{053BEBA6-E160-4888-8BD9-E4C1F96E7E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestion_AnimauxTests", "Gestion_AnimauxTests\Gestion_AnimauxTests.csproj", "{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,14 @@ Global
 		{053BEBA6-E160-4888-8BD9-E4C1F96E7E5E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{053BEBA6-E160-4888-8BD9-E4C1F96E7E5E}.Release|x86.ActiveCfg = Release|Any CPU
 		{053BEBA6-E160-4888-8BD9-E4C1F96E7E5E}.Release|x86.Build.0 = Release|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Debug|x86.Build.0 = Debug|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Release|x86.ActiveCfg = Release|Any CPU
+		{9C7B3D4C-EAEE-4916-9740-1BA9AF6A92A4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
