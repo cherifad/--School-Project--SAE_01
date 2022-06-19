@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Gestion_Animaux.Frames.Adoptants.GestionAdoptant" BaseTypeListCollapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgwAADEAAIAAogEAIIsAAEiAkFAAAAIAAAAAAAA=</HashCode>
+      <FileName>Frames\Adoptants\GestionAdoptant.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Frames.Adoptions.GestionAdoption" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAABAAQIAAgAEAIIEAAEiAQBAEAIIQAAgAAAA=</HashCode>
+      <FileName>Frames\Adoptions\GestionAdoption.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Frames.Animaux.GestionAnimaux" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAggAAAAAAIAAsgEAIIMACEiAEFAAIAIQAAAIAAA=</HashCode>
+      <FileName>Frames\Animaux\GestionAnimaux.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Frames.Espece.EspeceFrame" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAEgAAAAAAIAAgAFAIIEAAEiEEFAAAAIRAAAAAAA=</HashCode>
+      <FileName>Frames\Espece\EspeceFrame.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Frames.Main.Main" BaseTypeListCollapsed="true">
+    <Position X="12" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Frames\Main\Main.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Frames.Tests.stack" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAAAAAAAAAoAEAIAAAAEAAABAAIAAAAAAIAAA=</HashCode>
+      <FileName>Frames\Tests\stack.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Adoptant" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAQIAAAACQAAAAEAAAAQCASgAAFAgEAAAAAAAAQAAAA=</HashCode>
+      <FileName>Adoptant.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Adoption" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASIAAAACAAAAAAAAAAQCAAgAAEAAEAAEAAAABAQkAg=</HashCode>
+      <FileName>Adoption.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.Animal" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AATAAAAAUAAAABAAAwAQCAIgAAEAAEAAAQAAAAAAgAg=</HashCode>
+      <FileName>Animal.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.App">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gestion_Animaux.ApplicationData">
+    <Position X="8.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAgAIAAACAAAAAAAAACAgAAAAAABAAAAGAAA=</HashCode>
+      <FileName>ApplicationData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gestion_Animaux.DataAccess">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEQAAAAAAAAAAAAAAABAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Gestion_Animaux.MainWindow" BaseTypeListCollapsed="true">
+    <Position X="12" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACDAAQAAAQCAAACAAAAAEAAAEAQAAAAAAACAACUAgAA=</HashCode>
+      <FileName>MainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Gestion_Animaux.TypeAnimal" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAABAAAAAQQCAAgAAEAAEAAAAAEAAAABAg=</HashCode>
+      <FileName>TypeAnimal.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="Gestion_Animaux.Crud&lt;T&gt;">
+    <Position X="6.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAQCAAgAAEAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Crud.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
