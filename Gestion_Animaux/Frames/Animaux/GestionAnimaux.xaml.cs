@@ -42,6 +42,7 @@ namespace Gestion_Animaux.Frames.Animaux
 
             ListeAnimaux = new ObservableCollection<Animal>();
 
+            ApplicationData.UpdateAnimal();
             foreach (var item in ApplicationData.listeAnimaux)
             {
                 ListeAnimaux.Add(item);
