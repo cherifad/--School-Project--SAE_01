@@ -191,7 +191,7 @@ namespace Gestion_Animaux.Frames.Espece
             switch (form.Visibility)
             {
                 case Visibility.Visible:
-                    Ajouter.Content = "Ajouter un animal";
+                    Ajouter.Content = "Ajouter une Espèce";
                     DGTypeAnimal.Visibility = Visibility.Visible;
                     form.Visibility = Visibility.Hidden;
                     break;

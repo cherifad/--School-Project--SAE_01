@@ -278,7 +278,7 @@ namespace Gestion_Animaux.Frames.Adoptions
             switch (form.Visibility)
             {
                 case Visibility.Visible:
-                    Ajouter.Content = "Ajouter un animal";
+                    Ajouter.Content = "Ajouter une Adoption";
                     DGAdoption.Visibility = Visibility.Visible;
                     form.Visibility = Visibility.Hidden;
                     break;
