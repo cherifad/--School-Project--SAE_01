@@ -62,6 +62,10 @@ namespace Gestion_Animaux.Frames.Adoptions
         /// <param name="e"></param>
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
+            addAdoptantIn.SelectedIndex = -1;
+            addAnimalIn.SelectedIndex = -1;
+            addDateIn.SelectedDate = null;
+            addCommentaireIn.Text = "";
             Switch();
         }
         /// <summary>
@@ -280,7 +284,7 @@ namespace Gestion_Animaux.Frames.Adoptions
             switch (form.Visibility)
             {
                 case Visibility.Visible:
-                    Ajouter.Content = "Ajouter une Adoption";
+                    Ajouter.Content = "Ajouter une adoption";
                     DGAdoption.Visibility = Visibility.Visible;
                     form.Visibility = Visibility.Hidden;
                     break;

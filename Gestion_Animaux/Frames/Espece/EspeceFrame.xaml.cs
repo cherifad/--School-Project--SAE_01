@@ -47,6 +47,7 @@ namespace Gestion_Animaux.Frames.Espece
         }
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
+            addEspeceIn.Text = "";
             Switch();
         }
         public void Update()
@@ -192,7 +193,7 @@ namespace Gestion_Animaux.Frames.Espece
             switch (form.Visibility)
             {
                 case Visibility.Visible:
-                    Ajouter.Content = "Ajouter une Espèce";
+                    Ajouter.Content = "Ajouter une espèce";
                     DGTypeAnimal.Visibility = Visibility.Visible;
                     form.Visibility = Visibility.Hidden;
                     break;
