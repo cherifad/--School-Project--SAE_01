@@ -192,6 +192,10 @@ namespace Gestion_Animaux.Frames.Animaux
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
+            addEspeceIn.SelectedIndex = -1;
+            addPoidsIn.Text = "";
+            addTailleIn.Text = "";
+            addNomIn.Text = "";
             Switch();
         }
 
@@ -270,7 +274,7 @@ namespace Gestion_Animaux.Frames.Animaux
             switch (form.Visibility)
             {
                 case Visibility.Visible:
-                    Ajouter.Content = "Ajouter un Animal";
+                    Ajouter.Content = "Ajouter un animal";
                     DGAnimaux.Visibility = Visibility.Visible;
                     form.Visibility = Visibility.Hidden;
                     break;
