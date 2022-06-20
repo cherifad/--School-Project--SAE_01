@@ -85,6 +85,14 @@ namespace Gestion_Animaux.Tests
             newTest.Create();
             int postCompteur = test.FindAll().Count;
             Assert.AreEqual(preCompteur + 1, postCompteur);
+            bool find = false;
+            foreach (Adoption lAdoption in test.FindAll())
+            {
+                if (newTest == lAdoption)
+                    find = true;
+            }
+            Assert.IsTrue(find);
+            newTest.Delete();
         }
 
         [TestMethod()]
@@ -121,6 +129,7 @@ namespace Gestion_Animaux.Tests
                     find = true;
             }
             Assert.IsFalse(find);
+            test.Delete();
         }
 
         [TestMethod()]
@@ -134,6 +143,13 @@ namespace Gestion_Animaux.Tests
             newTest.Delete();
             int postCompteur = test.FindAll().Count;
             Assert.AreEqual(preCompteur - 1, postCompteur);
+            bool find = false;
+            foreach (Adoption lAdoption in test.FindAll())
+            {
+                if (newTest == lAdoption)
+                    find = true;
+            }
+            Assert.IsFalse(find);
         }
 
         [TestMethod()]

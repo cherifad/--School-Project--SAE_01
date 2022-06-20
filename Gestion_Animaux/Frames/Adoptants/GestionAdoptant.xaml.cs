@@ -40,6 +40,8 @@ namespace Gestion_Animaux.Frames.Adoptants
 
             Toggle();
 
+            ApplicationData.UpdateAdoptant();
+
             ListeAdoptant = new ObservableCollection<Adoptant>();
 
             foreach (var item in ApplicationData.listeAdoptants)

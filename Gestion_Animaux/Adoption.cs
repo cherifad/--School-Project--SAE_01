@@ -141,12 +141,13 @@ namespace Gestion_Animaux
         {
             int idAn = this.IdAnimal;
             int idAd = this.IdAdoptant;
+            DateTime date = this.DateAdoption;
             DataAccess access = new DataAccess();
             try
             {
                 if (access.openConnection())
                 {
-                    bool writer = access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}' where idAdoptant = {idAd} and idAnimal = {idAn}");
+                    bool writer = access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}' where idAdoptant = {idAd} and idAnimal = {idAn} and dateadoption = '{date}'");
                     if (!writer)
                     {
                         string message = $"Impossible d'ajouter des données (id : {idAd}, {idAn}";

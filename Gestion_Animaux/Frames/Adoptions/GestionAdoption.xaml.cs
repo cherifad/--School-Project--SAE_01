@@ -36,6 +36,8 @@ namespace Gestion_Animaux.Frames.Adoptions
 
             Toggle();
 
+            ApplicationData.UpdateAdoption();
+
             ListeAdoption = new ObservableCollection<Adoption>();
 
             foreach (var item in ApplicationData.listeAdoptions)
