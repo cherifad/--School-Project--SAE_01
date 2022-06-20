@@ -189,6 +189,10 @@ namespace Gestion_Animaux.Frames.Adoptants
 
         private void Ajouter_Click(object sender, RoutedEventArgs e)
         {
+            addNomIn.Text = string.Empty;
+            addMailIn.Text = string.Empty;
+            addPrenomIn.Text = string.Empty;
+            addTelIn.Text = string.Empty;
             Switch();
         }
 
@@ -258,12 +262,11 @@ namespace Gestion_Animaux.Frames.Adoptants
 
         private void addTelIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
-        }
-
-        private void addMailIn_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsTextAllowed(e.Text);
+            if (addTelIn.Text.Length > 10 || !IsTextAllowed(e.Text))
+            {
+                e.Handled = true;
+            }
+                
         }
 
         private void Switch()

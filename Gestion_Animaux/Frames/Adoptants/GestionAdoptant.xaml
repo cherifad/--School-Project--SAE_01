@@ -112,7 +112,7 @@
             FontWeight="Bold" FontFamily="Segoe UI Semibold" x:Name="modifs" Height="32" Margin="0,20,10,0" VerticalAlignment="Top" Width="254" Toggled="ToggleButton_Click" HorizontalAlignment="Right"/>
 
         <Grid x:Name="form" Visibility="Hidden">
-            <TextBox x:Name="addNomIn" VerticalContentAlignment="Center" Height="30" Margin="104,88,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addNomIn_PreviewTextInput"/>
+            <TextBox x:Name="addNomIn" VerticalContentAlignment="Center" Height="30" Margin="104,88,352,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addNomIn_PreviewTextInput"/>
 
             <Label FontSize="20" FontWeight="Bold" FontFamily="Segoe UI Semibold"  x:Name="addTitle" Content="Ajouter un adoptant" Margin="27,24,311,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
 
@@ -126,9 +126,9 @@
             FontWeight="Bold"
             Foreground="Black" Margin="19,148,0,0" TextWrapping="Wrap" Text="Prénom" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="addPrenomIn" VerticalContentAlignment="Center" Height="30" Margin="104,144,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addPrenomIn_PreviewTextInput"/>
+            <TextBox x:Name="addPrenomIn" VerticalContentAlignment="Center" Height="30" Margin="104,144,352,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addPrenomIn_PreviewTextInput"/>
 
-            <TextBox x:Name="addTelIn" VerticalContentAlignment="Center" Height="30" Margin="104,208,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addTelIn_PreviewTextInput"/>
+            <TextBox x:Name="addTelIn" VerticalContentAlignment="Center" Height="30" Margin="104,208,352,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addTelIn_PreviewTextInput"/>
 
             <TextBlock x:Name="addTel" FontFamily="Segoe UI Semibold"
             FontSize="16"
@@ -140,8 +140,7 @@
             FontWeight="Bold"
             Foreground="Black" Margin="19,267,0,0" TextWrapping="Wrap" Text="Email" HorizontalAlignment="Left" Width="85" Height="21" VerticalAlignment="Top"/>
 
-            <TextBox x:Name="addMailIn" VerticalContentAlignment="Center" Height="30" Margin="104,267,466,0" TextWrapping="Wrap"  VerticalAlignment="Top" PreviewTextInput="addMailIn_PreviewTextInput"/>
-
+            <TextBox x:Name="addMailIn" VerticalContentAlignment="Center" Height="30" Margin="104,267,352,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
             <Button
             x:Name="addBtn"
             Margin="103,339,466,0"
