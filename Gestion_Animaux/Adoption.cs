@@ -141,13 +141,13 @@ namespace Gestion_Animaux
         {
             int idAn = this.IdAnimal;
             int idAd = this.IdAdoptant;
-            DateTime date = this.DateAdoption;
+            DateTime dateAd = this.DateAdoption;
             DataAccess access = new DataAccess();
             try
             {
                 if (access.openConnection())
                 {
-                    bool writer = access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}' where idAdoptant = {idAd} and idAnimal = {idAn} and dateadoption = '{date}'");
+                    bool writer = access.setData($"update [iut-acy\\reydetb].Adoption set idadoptant = '{this.IdAdoptant}', idanimal = '{this.IdAnimal}', dateadoption = '{this.DateAdoption}', commentaireadoption = '{this.CommentaireAdoption}' where idAdoptant = {idAd} and idAnimal = {idAn} and dateadoption = {dateAd}");
                     if (!writer)
                     {
                         string message = $"Impossible d'ajouter des données (id : {idAd}, {idAn}";
@@ -204,6 +204,11 @@ namespace Gestion_Animaux
                    IdAnimal == adoption.IdAnimal &&
                    DateAdoption == adoption.DateAdoption &&
                    CommentaireAdoption == adoption.CommentaireAdoption;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         public static bool operator ==(Adoption left, Adoption right)

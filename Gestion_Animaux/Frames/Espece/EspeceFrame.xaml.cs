@@ -33,6 +33,7 @@ namespace Gestion_Animaux.Frames.Espece
 
             ListeTypeAnimal = new ObservableCollection<TypeAnimal>();
 
+            ApplicationData.UpdateTypeAnimal();
             foreach (var item in ApplicationData.listeTypeAnimal)
             {
                 ListeTypeAnimal.Add(item);
